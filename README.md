@@ -16,3 +16,9 @@ Branch naming convention: **type**-**issueID**-**desc**
 Note: Use three digits numbers eg: #7 would be 007
 
 **desc**: a short description about the issue. If two or more words are needed, use ‘\_’ to separate them.
+
+## Installation
+Install Python packages:
+```
+pip install requirements.txt
+```
