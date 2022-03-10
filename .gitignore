@@ -4,3 +4,20 @@
 **/Reference*Documents/Hardware/x1.6*Bluetooth*Reference/
 **/Reference*Documents/Hardware/x1.7*VGA*Reference/
 **/Reference*Documents/Hardware/x1.8*WiFi*Reference/
+
+# Quartus ignores
+**/.qsys_edit/
+**/db/
+**/greybox_tmp/
+**/ip_upgrade_port_diff_reports/
+**/*.BAK.qsys
+**/*.rpt
+**/soc_system/
+**/Computer_System/
+**/incremental_db/
+**/hps_isw_handoff/
+**/hc_output/
+**/stamp/
+**/*.summary
+**/*.done
+**/*.smsg

@@ -1,0 +1,3 @@
+https://www.intel.com/content/www/us/en/docs/programmable/683130/21-4/introduction.html
+
+- UART Core is section 11.
