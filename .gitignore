@@ -21,3 +21,11 @@
 **/*.summary
 **/*.done
 **/*.smsg
+**/*.sopcinfo
+**/*.sof
+**/*.sld
+**/*.jdi
+
+# Python
+**/__pycache__/
+
