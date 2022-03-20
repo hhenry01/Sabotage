@@ -4,6 +4,15 @@
 #include "gps.h"
 #include "debug.h"
 
+char gprmc_buffer_parsed[BUFFER_SIZE][BUFFER_SIZE];
+char gpgga_buffer_parsed[BUFFER_SIZE][BUFFER_SIZE];
+
+char latitude[10];
+char longitude[11];
+
+char NS = 0;
+char EW = 0;
+
 int gps_driver() {
 
 	FILE *fp;
@@ -15,10 +24,7 @@ int gps_driver() {
 	}
 
 	char gprmc_buffer_raw[BUFFER_SIZE] = "";
-	char gprmc_buffer_parsed[BUFFER_SIZE][BUFFER_SIZE];
-
 	char gpgga_buffer_raw[BUFFER_SIZE] = "";
-	char gpgga_buffer_parsed[BUFFER_SIZE][BUFFER_SIZE];
 
 	int bytes = 0;
 	while (1) {
@@ -28,7 +34,6 @@ int gps_driver() {
 			continue;
 		}
 		//printf("Buffer: %s\n", gprmc_buffer_raw);
-
 
 		// Parse the raw buffer using the ',' delimiter
 		parse_raw_buffer(gprmc_buffer_raw, gprmc_buffer_parsed);
@@ -50,12 +55,62 @@ int gps_driver() {
 		// Parse the raw buffer using the ',' delimiter
 		parse_raw_buffer(gpgga_buffer_raw, gpgga_buffer_parsed);
 
-
+		//get_decimal_degrees(latitude, longitude);
 		printf("Satellites Used: %s \n", gpgga_buffer_parsed[7]);
 
+		memcpy(latitude, gprmc_buffer_parsed[LAT], 10);
+		memcpy(longitude, gprmc_buffer_parsed[LAT], 11);
+
+		NS = gprmc_buffer_parsed[N_S][0];
+		EW = gprmc_buffer_parsed[E_W][0];
+
+		//send_formated_string();
 	}
 
 	fclose(fp);
+	return 0;
+}
+
+void send_formated_string(void) {
+	char data[50];
+
+	sprintf(data, "$9,%s,%c,%s,%c,0,2*\n",latitude,NS,longitude,EW);
+
+}
+
+/**
+ * Takes a buffer and produces latitude and longitude in decimal degrees format
+ *
+ * returns -1 if error and 0 otherwise
+ */
+int get_decimal_degrees(char* latitude, char* longitude) {
+	char tempLat[10];
+	char tempLong[11];
+
+	memcpy(tempLat, gprmc_buffer_parsed[LAT], 9);
+	memcpy(tempLong, gprmc_buffer_parsed[LAT], 10);
+
+	/* degrees minute format - lat: ddmm.mmmm and long: dddmm.mmmm
+	 *
+	 * Conversion decimal = degrees + minutes/60
+	 * */
+
+	char str_lat_degrees[3];
+	memcpy(str_lat_degrees, &tempLat[0], 2);
+	printf("Latitude degrees: %s", str_lat_degrees);
+	int lat_degrees = atoi(str_lat_degrees);
+
+	char str_lat_minutes[8];
+	memcpy(str_lat_minutes, &tempLat[2],7);
+	printf("Latitude minutes: %s", str_lat_minutes);
+	float lat_minutes = atof(str_lat_minutes);
+
+	float lat_decimal = lat_minutes/60;
+	printf("Latitude decimal: %f", lat_decimal);
+
+	sprintf(latitude, "%s.%f", str_lat_degrees, lat_decimal);
+	printf("Latitude: %s", latitude);
+
 	return 0;
 }
 
@@ -66,11 +121,11 @@ void parse_raw_buffer(char* input_buffer, char output_buffer[][BUFFER_SIZE]) {
 	int inner_index = 0;
 	char c = 0;
 
-	while ((c = input_buffer[index]) != '\0') {
+	while ((c = input_buffer[index]) != NULL) {
 		if (c == ',') {
-			if (inner_index == 0) output_buffer[section][inner_index] = '\0';
+			if (inner_index == 0) output_buffer[section][inner_index] = '0';
 
-			output_buffer[section][inner_index + 1] = '\0';
+			output_buffer[section][inner_index + 1] = NULL;
 
 			section++;
 			inner_index = 0;
@@ -111,12 +166,12 @@ int read_serial(FILE *fp, char* type, char* buffer, int size) {
   // Wait until we get the $
   while (getc(fp) != '$');
 
-  // Read the first 5 bytes - GPRMC
+  // Read the first 5 bytes
   for (int i = 0; i < 5; i++) {
 	outputSentence[i] = getc(fp);
   }
   // Strings need to be null terminated.
-  outputSentence[5] = '\0';
+  outputSentence[5] = NULL;
 
   if (strcmp(outputSentence, type) != 0) goto jump;
 
@@ -130,7 +185,7 @@ int read_serial(FILE *fp, char* type, char* buffer, int size) {
 	  xor_sum ^= prompt;
 	  if (++i >= size) return 0;
   }
-  while(++bytes_read < size) buffer[bytes_read] = '\0';
+  while(++bytes_read < size) buffer[bytes_read] = NULL;
 /*
   char extracted_crc[2] = "";
   i = 0;

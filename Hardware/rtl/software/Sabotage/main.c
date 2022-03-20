@@ -2,11 +2,13 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "sys/alt_log_printf.h"
+
 #include "gps.h"
 #include "bluetooth.h"
 #include "debug.h"
 
-#define GPS 1
+#define GPS 0
 
 int main(void)
 {

@@ -14,6 +14,7 @@ int NMEA_parse(FILE *fp, char* lat, char* lon, char* type);
 void printRX(FILE* fp);
 
 int gps_driver();
+int get_decimal_degrees(char* latitude, char* longitude);
 int read_serial(FILE *fp, char* type, char* buffer, int size);
 void parse_raw_buffer(char* input_buffer, char output_buffer[][BUFFER_SIZE]);
 
