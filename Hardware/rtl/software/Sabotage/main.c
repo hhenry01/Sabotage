@@ -1,27 +1,26 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
+
+#include "gps.h"
+#include "bluetooth.h"
+#include "debug.h"
+
+#define GPS 1
 
 int main(void)
 {
-	FILE *fp;
-	fp = fopen("/dev/GPS_UART", "r+");
-	char prompt = 0;
 
-	if (fp)
-	{
-		while (prompt != '$')
-		{
-			prompt = getc(fp);
-		}
-		do {
-			prompt = getc(fp);
-			printf("%c", prompt);
-		} while (prompt != '*');
-		printf("\n");
-	} else {
-		printf("Error\n");
-	}
-	fclose(fp);
+    if (GPS) {
+    	if (gps_driver() < 0) printf("GPS driver unsuccessful\n");
+    } else {
+    	if (bluetooth_driver() < 0) printf("Bluetooth driver unsuccessful\n");
+    }
+
 	printf("Done\n");
 	return 0;
 }
+
+
+
+

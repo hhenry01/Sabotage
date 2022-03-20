@@ -30,3 +30,11 @@
 # Python
 **/__pycache__/
 
+# Nios II Eclipse
+**/software/Sabotage/**/*.force_relink
+**/software/Sabotage/*.elf
+**/software/Sabotage/*.map
+**/software/Sabotage/*.objdump
+**/software/Sabotage_bsp/obj/
+**/software/Sabotage_bsp/libhal_bsp.a
+

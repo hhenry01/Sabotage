@@ -2,8 +2,8 @@
 <sch:Settings xmlns:sch="http://www.altera.com/embeddedsw/bsp/schema">
         <BspType>hal</BspType>
         <BspVersion>default</BspVersion>
-        <BspGeneratedTimeStamp>10-Mar-2022 1:25:55 PM</BspGeneratedTimeStamp>
-        <BspGeneratedUnixTimeStamp>1646947555315</BspGeneratedUnixTimeStamp>
+        <BspGeneratedTimeStamp>20-Mar-2022 10:46:17 AM</BspGeneratedTimeStamp>
+        <BspGeneratedUnixTimeStamp>1647798377996</BspGeneratedUnixTimeStamp>
         <BspGeneratedLocation>C:\Users\henry\Documents\Schoolwork\CPEN_391\Sabotage\Hardware\rtl\software\Sabotage_bsp</BspGeneratedLocation>
         <BspSettingsFile>settings.bsp</BspSettingsFile>
         <SopcDesignFile>..\..\Computer_System.sopcinfo</SopcDesignFile>
@@ -1039,6 +1039,18 @@
         <MemoryMap>
                 <slaveDescriptor>GPS_UART</slaveDescriptor>
                 <addressRange>0xFF203080 - 0xFF20309F</addressRange>
+                <addressSpan>32</addressSpan>
+                <attributes>printable</attributes>
+        </MemoryMap>
+        <MemoryMap>
+                <slaveDescriptor>Bluetooth_UART</slaveDescriptor>
+                <addressRange>0xFF2030A0 - 0xFF2030BF</addressRange>
+                <addressSpan>32</addressSpan>
+                <attributes>printable</attributes>
+        </MemoryMap>
+        <MemoryMap>
+                <slaveDescriptor>WiFi_UART</slaveDescriptor>
+                <addressRange>0xFF2030C0 - 0xFF2030DF</addressRange>
                 <addressSpan>32</addressSpan>
                 <attributes>printable</attributes>
         </MemoryMap>

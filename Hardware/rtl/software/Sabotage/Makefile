@@ -142,7 +142,10 @@ ACDS_VERSION := 18.1
 ELF := Sabotage.elf
 
 # Paths to C, C++, and assembly source files.
-C_SRCS := main.c
+C_SRCS += main.c
+C_SRCS += gps.c
+C_SRCS += bluetooth.c
+C_SRCS += debug.c
 CXX_SRCS :=
 ASM_SRCS :=
 
