@@ -1,4 +1,10 @@
-
+// Serial pins. Use GPIO_0 (inner bridge)
+`define WIFI_UART_RXP 30
+`define WIFI_UART_TXP 31
+`define BT_UART_RXP   32
+`define BT_UART_TXP   33
+`define GPS_UART_RXP  34
+`define GPS_UART_TXP  35
 
 module DE1_SoC_Computer (
 	////////////////////////////////////
@@ -561,12 +567,16 @@ Computer_System The_System (
 	.hps_io_hps_io_usb1_inst_NXT		(HPS_USB_NXT),
 
 	// Bluetooth serial
-	// .bt_uart_rxd(GPIO_0[34]),
-	// .bt_uart_txd(GPIO_0[35]),
+	.bt_uart_rxd(GPIO_0[`BT_UART_RXP]),
+	.bt_uart_txd(GPIO_0[`BT_UART_TXP]),
 
 	// GPS serial
-	.gps_uart_rxd(GPIO_0[34]),
-	.gps_uart_txd(GPIO_0[35]),
+	.gps_uart_rxd(GPIO_0[`GPS_UART_RXP]),
+	.gps_uart_txd(GPIO_0[`GPS_UART_TXP]),
+
+	// WiFi serial
+	.wifi_uart_rxd(GPIO_0[`WIFI_UART_RXP]),
+	.wifi_uart_txd(GPIO_0[`WIFI_UART_TXP]),
 );
 
 

@@ -25,6 +25,7 @@
 **/*.sof
 **/*.sld
 **/*.jdi
+**/*.qws
 
 # Python
 **/__pycache__/

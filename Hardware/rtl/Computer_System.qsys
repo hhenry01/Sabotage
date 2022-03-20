@@ -694,6 +694,14 @@
          type = "int";
       }
    }
+   element WiFi_UART
+   {
+      datum _sortIndex
+      {
+         value = "43";
+         type = "int";
+      }
+   }
 }
 ]]></parameter>
  <parameter name="clockCrossingAdapter" value="HANDSHAKE" />
@@ -800,6 +808,11 @@
    name="video_pll_ref_reset"
    internal="Video_PLL.ref_reset"
    type="reset"
+   dir="end" />
+ <interface
+   name="wifi_uart"
+   internal="WiFi_UART.external_connection"
+   type="conduit"
    dir="end" />
  <module name="ADC" kind="altera_up_avalon_adc" version="18.0" enabled="0">
   <parameter name="AUTO_CLK_CLOCK_RATE" value="100000000" />
@@ -1738,7 +1751,7 @@
   <parameter name="dataAddrWidth" value="32" />
   <parameter name="dataMasterHighPerformanceAddrWidth" value="1" />
   <parameter name="dataMasterHighPerformanceMapParam" value="" />
-  <parameter name="dataSlaveMapParam"><![CDATA[<address-map><slave name='SDRAM.s1' start='0x0' end='0x4000000' type='altera_avalon_new_sdram_controller.s1' /><slave name='Onchip_SRAM.s1' start='0x8000000' end='0x8040000' type='altera_avalon_onchip_memory2.s1' /><slave name='VGA_Subsystem_Char_Buf_Subsystem_Onchip_SRAM.s1' start='0x9000000' end='0x9002000' type='altera_avalon_onchip_memory2.s1' /><slave name='Nios2.debug_mem_slave' start='0xA000000' end='0xA000800' type='altera_nios2_gen2.debug_mem_slave' /><slave name='ARM_A9_HPS_axi_sdram.axi_slave0' start='0x40000000' end='0x80000000' type='axi_sdram.axi_slave0' /><slave name='LEDs.s1' start='0xFF200000' end='0xFF200010' type='altera_avalon_pio.s1' /><slave name='HEX3_HEX0.s1' start='0xFF200020' end='0xFF200030' type='altera_avalon_pio.s1' /><slave name='HEX5_HEX4.s1' start='0xFF200030' end='0xFF200040' type='altera_avalon_pio.s1' /><slave name='Slider_Switches.s1' start='0xFF200040' end='0xFF200050' type='altera_avalon_pio.s1' /><slave name='Pushbuttons.s1' start='0xFF200050' end='0xFF200060' type='altera_avalon_pio.s1' /><slave name='Expansion_JP1.s1' start='0xFF200060' end='0xFF200070' type='altera_avalon_pio.s1' /><slave name='JTAG_UART.avalon_jtag_slave' start='0xFF201000' end='0xFF201008' type='altera_avalon_jtag_uart.avalon_jtag_slave' /><slave name='Interval_Timer.s1' start='0xFF202000' end='0xFF202020' type='altera_avalon_timer.s1' /><slave name='Interval_Timer_2.s1' start='0xFF202020' end='0xFF202040' type='altera_avalon_timer.s1' /><slave name='SysID.control_slave' start='0xFF202040' end='0xFF202048' type='altera_avalon_sysid_qsys.control_slave' /><slave name='VGA_Subsystem_VGA_Pixel_RGB_Resampler.avalon_rgb_slave' start='0xFF203010' end='0xFF203014' type='altera_up_avalon_video_rgb_resampler.avalon_rgb_slave' /><slave name='VGA_Subsystem_VGA_Pixel_DMA.avalon_dma_control_slave' start='0xFF203020' end='0xFF203030' type='altera_up_avalon_video_dma_controller.avalon_dma_control_slave' /><slave name='VGA_Subsystem_Char_Buf_Subsystem_Char_Buf_DMA.avalon_dma_control_slave' start='0xFF203030' end='0xFF203040' type='altera_up_avalon_video_dma_controller.avalon_dma_control_slave' /><slave name='Video_In_Subsystem_Video_In_DMA.avalon_dma_control_slave' start='0xFF203060' end='0xFF203070' type='altera_up_avalon_video_dma_controller.avalon_dma_control_slave' /><slave name='Video_In_Subsystem_Video_In_Edge_Detection_Subsystem_Edge_Detection_Router_Controller.s1' start='0xFF203070' end='0xFF203080' type='altera_avalon_pio.s1' /><slave name='GPS_UART.s1' start='0xFF203080' end='0xFF2030A0' type='altera_avalon_uart.s1' /></address-map>]]></parameter>
+  <parameter name="dataSlaveMapParam"><![CDATA[<address-map><slave name='SDRAM.s1' start='0x0' end='0x4000000' type='altera_avalon_new_sdram_controller.s1' /><slave name='Onchip_SRAM.s1' start='0x8000000' end='0x8040000' type='altera_avalon_onchip_memory2.s1' /><slave name='VGA_Subsystem_Char_Buf_Subsystem_Onchip_SRAM.s1' start='0x9000000' end='0x9002000' type='altera_avalon_onchip_memory2.s1' /><slave name='Nios2.debug_mem_slave' start='0xA000000' end='0xA000800' type='altera_nios2_gen2.debug_mem_slave' /><slave name='ARM_A9_HPS_axi_sdram.axi_slave0' start='0x40000000' end='0x80000000' type='axi_sdram.axi_slave0' /><slave name='LEDs.s1' start='0xFF200000' end='0xFF200010' type='altera_avalon_pio.s1' /><slave name='HEX3_HEX0.s1' start='0xFF200020' end='0xFF200030' type='altera_avalon_pio.s1' /><slave name='HEX5_HEX4.s1' start='0xFF200030' end='0xFF200040' type='altera_avalon_pio.s1' /><slave name='Slider_Switches.s1' start='0xFF200040' end='0xFF200050' type='altera_avalon_pio.s1' /><slave name='Pushbuttons.s1' start='0xFF200050' end='0xFF200060' type='altera_avalon_pio.s1' /><slave name='Expansion_JP1.s1' start='0xFF200060' end='0xFF200070' type='altera_avalon_pio.s1' /><slave name='JTAG_UART.avalon_jtag_slave' start='0xFF201000' end='0xFF201008' type='altera_avalon_jtag_uart.avalon_jtag_slave' /><slave name='Interval_Timer.s1' start='0xFF202000' end='0xFF202020' type='altera_avalon_timer.s1' /><slave name='Interval_Timer_2.s1' start='0xFF202020' end='0xFF202040' type='altera_avalon_timer.s1' /><slave name='SysID.control_slave' start='0xFF202040' end='0xFF202048' type='altera_avalon_sysid_qsys.control_slave' /><slave name='VGA_Subsystem_VGA_Pixel_RGB_Resampler.avalon_rgb_slave' start='0xFF203010' end='0xFF203014' type='altera_up_avalon_video_rgb_resampler.avalon_rgb_slave' /><slave name='VGA_Subsystem_VGA_Pixel_DMA.avalon_dma_control_slave' start='0xFF203020' end='0xFF203030' type='altera_up_avalon_video_dma_controller.avalon_dma_control_slave' /><slave name='VGA_Subsystem_Char_Buf_Subsystem_Char_Buf_DMA.avalon_dma_control_slave' start='0xFF203030' end='0xFF203040' type='altera_up_avalon_video_dma_controller.avalon_dma_control_slave' /><slave name='Video_In_Subsystem_Video_In_DMA.avalon_dma_control_slave' start='0xFF203060' end='0xFF203070' type='altera_up_avalon_video_dma_controller.avalon_dma_control_slave' /><slave name='Video_In_Subsystem_Video_In_Edge_Detection_Subsystem_Edge_Detection_Router_Controller.s1' start='0xFF203070' end='0xFF203080' type='altera_avalon_pio.s1' /><slave name='GPS_UART.s1' start='0xFF203080' end='0xFF2030A0' type='altera_avalon_uart.s1' /><slave name='Bluetooth_UART.s1' start='0xFF2030A0' end='0xFF2030C0' type='altera_avalon_uart.s1' /><slave name='WiFi_UART.s1' start='0xFF2030C0' end='0xFF2030E0' type='altera_avalon_uart.s1' /></address-map>]]></parameter>
   <parameter name="data_master_high_performance_paddr_base" value="0" />
   <parameter name="data_master_high_performance_paddr_size" value="0" />
   <parameter name="data_master_paddr_base" value="0" />
@@ -1784,7 +1797,7 @@
   <parameter name="instruction_master_high_performance_paddr_size" value="0" />
   <parameter name="instruction_master_paddr_base" value="0" />
   <parameter name="instruction_master_paddr_size" value="0" />
-  <parameter name="internalIrqMaskSystemInfo" value="2335" />
+  <parameter name="internalIrqMaskSystemInfo" value="2367" />
   <parameter name="io_regionbase" value="0" />
   <parameter name="io_regionsize" value="0" />
   <parameter name="master_addr_map" value="false" />
@@ -1966,7 +1979,7 @@
   <parameter name="instruction_master_high_performance_paddr_size" value="0" />
   <parameter name="instruction_master_paddr_base" value="0" />
   <parameter name="instruction_master_paddr_size" value="0" />
-  <parameter name="internalIrqMaskSystemInfo" value="2335" />
+  <parameter name="internalIrqMaskSystemInfo" value="2367" />
   <parameter name="io_regionbase" value="0" />
   <parameter name="io_regionsize" value="0" />
   <parameter name="master_addr_map" value="false" />
@@ -2292,6 +2305,22 @@
   <parameter name="lcd_clk_en" value="false" />
   <parameter name="vga_clk_en" value="true" />
   <parameter name="video_in_clk_en" value="false" />
+ </module>
+ <module name="WiFi_UART" kind="altera_avalon_uart" version="18.1" enabled="1">
+  <parameter name="baud" value="9600" />
+  <parameter name="clockRate" value="100000000" />
+  <parameter name="dataBits" value="8" />
+  <parameter name="fixedBaud" value="true" />
+  <parameter name="parity" value="NONE" />
+  <parameter name="simCharStream" value="" />
+  <parameter name="simInteractiveInputEnable" value="false" />
+  <parameter name="simInteractiveOutputEnable" value="false" />
+  <parameter name="simTrueBaud" value="false" />
+  <parameter name="stopBits" value="1" />
+  <parameter name="syncRegDepth" value="2" />
+  <parameter name="useCtsRts" value="false" />
+  <parameter name="useEopRegister" value="false" />
+  <parameter name="useRelativePathForSimFile" value="false" />
  </module>
  <connection
    kind="avalon"
@@ -2724,6 +2753,24 @@
    end="GPS_UART.s1">
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0xff203080" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="18.1"
+   start="Nios2.data_master"
+   end="WiFi_UART.s1">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0xff2030c0" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="18.1"
+   start="Nios2.data_master"
+   end="Bluetooth_UART.s1">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0xff2030a0" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -3596,6 +3643,11 @@
    kind="clock"
    version="18.1"
    start="System_PLL.sys_clk"
+   end="WiFi_UART.clk" />
+ <connection
+   kind="clock"
+   version="18.1"
+   start="System_PLL.sys_clk"
    end="Onchip_SRAM.clk1" />
  <connection
    kind="clock"
@@ -3745,6 +3797,13 @@
    start="ARM_A9_HPS.f2h_irq0"
    end="GPS_UART.irq">
   <parameter name="irqNumber" value="4" />
+ </connection>
+ <connection
+   kind="interrupt"
+   version="18.1"
+   start="ARM_A9_HPS.f2h_irq0"
+   end="WiFi_UART.irq">
+  <parameter name="irqNumber" value="5" />
  </connection>
  <connection
    kind="interrupt"
@@ -3912,6 +3971,16 @@
    start="Nios2_2nd_Core.irq"
    end="GPS_UART.irq">
   <parameter name="irqNumber" value="4" />
+ </connection>
+ <connection
+   kind="interrupt"
+   version="18.1"
+   start="Nios2_2nd_Core.irq"
+   end="WiFi_UART.irq">
+  <parameter name="irqNumber" value="5" />
+ </connection>
+ <connection kind="interrupt" version="18.1" start="Nios2.irq" end="WiFi_UART.irq">
+  <parameter name="irqNumber" value="5" />
  </connection>
  <connection
    kind="nios_custom_instruction"
@@ -4115,6 +4184,11 @@
    kind="reset"
    version="18.1"
    start="ARM_A9_HPS.h2f_reset"
+   end="WiFi_UART.reset" />
+ <connection
+   kind="reset"
+   version="18.1"
+   start="ARM_A9_HPS.h2f_reset"
    end="Onchip_SRAM.reset1" />
  <connection
    kind="reset"
@@ -4301,6 +4375,11 @@
    version="18.1"
    start="System_PLL.reset_source"
    end="GPS_UART.reset" />
+ <connection
+   kind="reset"
+   version="18.1"
+   start="System_PLL.reset_source"
+   end="WiFi_UART.reset" />
  <connection
    kind="reset"
    version="18.1"
