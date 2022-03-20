@@ -2,8 +2,8 @@
 <sch:Settings xmlns:sch="http://www.altera.com/embeddedsw/bsp/schema">
         <BspType>hal</BspType>
         <BspVersion>default</BspVersion>
-        <BspGeneratedTimeStamp>20-Mar-2022 10:46:17 AM</BspGeneratedTimeStamp>
-        <BspGeneratedUnixTimeStamp>1647798377996</BspGeneratedUnixTimeStamp>
+        <BspGeneratedTimeStamp>20-Mar-2022 12:50:09 PM</BspGeneratedTimeStamp>
+        <BspGeneratedUnixTimeStamp>1647805809099</BspGeneratedUnixTimeStamp>
         <BspGeneratedLocation>C:\Users\henry\Documents\Schoolwork\CPEN_391\Sabotage\Hardware\rtl\software\Sabotage_bsp</BspGeneratedLocation>
         <BspSettingsFile>settings.bsp</BspSettingsFile>
         <SopcDesignFile>..\..\Computer_System.sopcinfo</SopcDesignFile>

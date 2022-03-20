@@ -8,7 +8,7 @@
 #include "bluetooth.h"
 #include "debug.h"
 
-#define GPS 0
+#define GPS 1
 
 int main(void)
 {

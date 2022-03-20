@@ -1732,8 +1732,8 @@
   <parameter name="width" value="10" />
  </module>
  <module name="Nios2" kind="altera_nios2_gen2" version="18.1" enabled="1">
-  <parameter name="AUTO_CLK_CLOCK_DOMAIN" value="10" />
-  <parameter name="AUTO_CLK_RESET_DOMAIN" value="10" />
+  <parameter name="AUTO_CLK_CLOCK_DOMAIN" value="9" />
+  <parameter name="AUTO_CLK_RESET_DOMAIN" value="9" />
   <parameter name="AUTO_DEVICE" value="5CSEMA5F31C6" />
   <parameter name="AUTO_DEVICE_SPEEDGRADE" value="6" />
   <parameter name="bht_ramBlockType" value="Automatic" />
@@ -1913,7 +1913,7 @@
    name="Nios2_2nd_Core"
    kind="altera_nios2_gen2"
    version="18.1"
-   enabled="1">
+   enabled="0">
   <parameter name="AUTO_CLK_CLOCK_DOMAIN" value="10" />
   <parameter name="AUTO_CLK_RESET_DOMAIN" value="10" />
   <parameter name="AUTO_DEVICE" value="5CSEMA5F31C6" />
@@ -2095,7 +2095,7 @@
    name="Nios2_2nd_Core_Floating_Point"
    kind="altera_nios_custom_instr_floating_point"
    version="18.1"
-   enabled="1">
+   enabled="0">
   <parameter name="useDivider" value="1" />
  </module>
  <module
@@ -2257,13 +2257,13 @@
   <parameter name="AUTO_GENERATION_ID" value="0" />
   <parameter name="AUTO_PIXEL_DMA_MASTER_ADDRESS_MAP"><![CDATA[<address-map><slave name='SDRAM.s1' start='0x0' end='0x4000000' /><slave name='Onchip_SRAM.s2' start='0x8000000' end='0x8040000' /></address-map>]]></parameter>
   <parameter name="AUTO_PIXEL_DMA_MASTER_ADDRESS_WIDTH" value="AddressWidth = 28" />
-  <parameter name="AUTO_SYS_CLK_CLOCK_DOMAIN" value="10" />
+  <parameter name="AUTO_SYS_CLK_CLOCK_DOMAIN" value="9" />
   <parameter name="AUTO_SYS_CLK_CLOCK_RATE" value="100000000" />
-  <parameter name="AUTO_SYS_CLK_RESET_DOMAIN" value="10" />
+  <parameter name="AUTO_SYS_CLK_RESET_DOMAIN" value="9" />
   <parameter name="AUTO_UNIQUE_ID">$${FILENAME}_VGA_Subsystem</parameter>
-  <parameter name="AUTO_VGA_CLK_CLOCK_DOMAIN" value="12" />
+  <parameter name="AUTO_VGA_CLK_CLOCK_DOMAIN" value="11" />
   <parameter name="AUTO_VGA_CLK_CLOCK_RATE" value="25000000" />
-  <parameter name="AUTO_VGA_CLK_RESET_DOMAIN" value="12" />
+  <parameter name="AUTO_VGA_CLK_RESET_DOMAIN" value="11" />
  </module>
  <module
    name="Video_In_DMA_Addr_Translation"
@@ -2281,9 +2281,9 @@
   <parameter name="AUTO_DEVICE_FAMILY" value="Cyclone V" />
   <parameter name="AUTO_DEVICE_SPEEDGRADE" value="6" />
   <parameter name="AUTO_GENERATION_ID" value="0" />
-  <parameter name="AUTO_SYS_CLK_CLOCK_DOMAIN" value="10" />
+  <parameter name="AUTO_SYS_CLK_CLOCK_DOMAIN" value="9" />
   <parameter name="AUTO_SYS_CLK_CLOCK_RATE" value="100000000" />
-  <parameter name="AUTO_SYS_CLK_RESET_DOMAIN" value="10" />
+  <parameter name="AUTO_SYS_CLK_RESET_DOMAIN" value="9" />
   <parameter name="AUTO_UNIQUE_ID">$${FILENAME}_Video_In_Subsystem</parameter>
   <parameter name="AUTO_VIDEO_IN_DMA_MASTER_ADDRESS_MAP"><![CDATA[<address-map><slave name='SDRAM.s1' start='0x0' end='0x4000000' /><slave name='Onchip_SRAM.s1' start='0x8000000' end='0x8040000' /></address-map>]]></parameter>
   <parameter

@@ -7,7 +7,7 @@ const char* ssid     = "This ain't a hotspot";
 const char* password = "henry123";
 
 // Temporary host for development purposes.
-const char* host = "http://d4e9-128-189-94-49.ngrok.io";
+const char* host = "http://6e4f-185-153-179-46.ngrok.io";
 const char* jsonStructure =\
   "{\"SessionID\":\"%s\",\"Coord\":{\"lat\":\"%s\",\"lon\":\"%s\"},\"NumPlayers\":\"%s\",\"Win\":\"%s\"}";
 
