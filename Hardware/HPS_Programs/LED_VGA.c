@@ -37,7 +37,7 @@ int main() {
 		return( 1 );
 	}
 	
-	h2p_lw_led_addr=virtual_base + ( ( unsigned long  )( ALT_LWFPGASLVS_OFST + PIO_LED_BASE ) & ( unsigned long)( HW_REGS_MASK ) );
+	h2p_lw_led_addr=virtual_base + ( ( unsigned long  )( ALT_LWFPGASLVS_OFST + LEDS_BASE ) & ( unsigned long)( HW_REGS_MASK ) );
 	
 
 	// toggle the LEDs a bit
@@ -56,7 +56,7 @@ int main() {
 		// update led mask
 		if (led_direction == 0){
 			led_mask <<= 1;
-			if (led_mask == (0x01 << (PIO_LED_DATA_WIDTH-1)))
+			if (led_mask == (0x01 << (LEDS_DATA_WIDTH-1)))
 				 led_direction = 1;
 		}else{
 			led_mask >>= 1;

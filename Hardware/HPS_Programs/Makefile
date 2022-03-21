@@ -1,5 +1,5 @@
 #
-TARGET = bluetooth_driver
+TARGET = LED_VGA
 
 #
 ALT_DEVICE_FAMILY ?= soc_cv_av
@@ -12,7 +12,7 @@ CC = $(CROSS_COMPILE)gcc
 ARCH= arm
 
 build: $(TARGET)
-$(TARGET): bluetooth_driver.o 
+$(TARGET): LED_VGA.o 
 	$(CC) $(LDFLAGS)   $^ -o $@  
 %.o : %.c
 	$(CC) $(CFLAGS) -c $< -o $@
