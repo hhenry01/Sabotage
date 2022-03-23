@@ -4,7 +4,7 @@
  * Machine generated for CPU 'Nios2' in SOPC Builder design 'Computer_System'
  * SOPC Builder design path: ../../Computer_System.sopcinfo
  *
- * Generated: Fri Mar 11 15:20:13 PST 2022
+ * Generated: Tue Mar 22 23:21:24 PDT 2022
  */
 
 /*
@@ -51,7 +51,7 @@
 MEMORY
 {
     reset : ORIGIN = 0x0, LENGTH = 32
-    SDRAM : ORIGIN = 0x20, LENGTH = 33554400
+    SDRAM : ORIGIN = 0x20, LENGTH = 67108832
     Onchip_SRAM : ORIGIN = 0x8000000, LENGTH = 262144
     VGA_Subsystem_Char_Buf_Subsystem_Onchip_SRAM : ORIGIN = 0x9000000, LENGTH = 8192
     ARM_A9_HPS_axi_sdram : ORIGIN = 0x40000000, LENGTH = 1073741824

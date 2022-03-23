@@ -1,7 +1,4 @@
 #
-TARGET = LED_VGA
-
-#
 ALT_DEVICE_FAMILY ?= soc_cv_av
 SOCEDS_ROOT ?= $(SOCEDS_DEST_ROOT)
 HWLIBS_ROOT = $(SOCEDS_ROOT)/ip/altera/hps/altera_hps/hwlib
@@ -11,12 +8,12 @@ LDFLAGS =  -g -Wall
 CC = $(CROSS_COMPILE)gcc
 ARCH= arm
 
-build: $(TARGET)
-$(TARGET): LED_VGA.o 
-	$(CC) $(LDFLAGS)   $^ -o $@  
-%.o : %.c
-	$(CC) $(CFLAGS) -c $< -o $@
+TARGETS = test # Add programs here
 
-.PHONY: clean
+all: $(TARGETS)
+
+$(TARGETS): %: %.c
+	@$(CC) -c $(CFLAGS) $< -o $@
+
 clean:
-	rm -f $(TARGET) *.a *.o *~ 
+	@rm -f $(TARGETS)

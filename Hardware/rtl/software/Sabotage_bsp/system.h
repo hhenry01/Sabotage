@@ -4,7 +4,7 @@
  * Machine generated for CPU 'Nios2' in SOPC Builder design 'Computer_System'
  * SOPC Builder design path: ../../Computer_System.sopcinfo
  *
- * Generated: Sun Mar 20 10:32:56 PDT 2022
+ * Generated: Tue Mar 22 23:21:24 PDT 2022
  */
 
 /*
@@ -542,7 +542,7 @@
 #define SYSID_IRQ_INTERRUPT_CONTROLLER_ID -1
 #define SYSID_NAME "/dev/SysID"
 #define SYSID_SPAN 8
-#define SYSID_TIMESTAMP 1647797255
+#define SYSID_TIMESTAMP 1648015446
 #define SYSID_TYPE "altera_avalon_sysid_qsys"
 
 
@@ -580,6 +580,33 @@
 #define ALT_STDOUT_PRESENT
 #define ALT_STDOUT_TYPE "altera_avalon_jtag_uart"
 #define ALT_SYSTEM_NAME "Computer_System"
+
+
+/*
+ * Touch_Data_Transmit configuration
+ *
+ */
+
+#define ALT_MODULE_CLASS_Touch_Data_Transmit altera_avalon_pio
+#define TOUCH_DATA_TRANSMIT_BASE 0xff2030e0
+#define TOUCH_DATA_TRANSMIT_BIT_CLEARING_EDGE_REGISTER 0
+#define TOUCH_DATA_TRANSMIT_BIT_MODIFYING_OUTPUT_REGISTER 0
+#define TOUCH_DATA_TRANSMIT_CAPTURE 0
+#define TOUCH_DATA_TRANSMIT_DATA_WIDTH 9
+#define TOUCH_DATA_TRANSMIT_DO_TEST_BENCH_WIRING 0
+#define TOUCH_DATA_TRANSMIT_DRIVEN_SIM_VALUE 0
+#define TOUCH_DATA_TRANSMIT_EDGE_TYPE "NONE"
+#define TOUCH_DATA_TRANSMIT_FREQ 100000000
+#define TOUCH_DATA_TRANSMIT_HAS_IN 0
+#define TOUCH_DATA_TRANSMIT_HAS_OUT 1
+#define TOUCH_DATA_TRANSMIT_HAS_TRI 0
+#define TOUCH_DATA_TRANSMIT_IRQ -1
+#define TOUCH_DATA_TRANSMIT_IRQ_INTERRUPT_CONTROLLER_ID -1
+#define TOUCH_DATA_TRANSMIT_IRQ_TYPE "NONE"
+#define TOUCH_DATA_TRANSMIT_NAME "/dev/Touch_Data_Transmit"
+#define TOUCH_DATA_TRANSMIT_RESET_VALUE 0
+#define TOUCH_DATA_TRANSMIT_SPAN 16
+#define TOUCH_DATA_TRANSMIT_TYPE "altera_avalon_pio"
 
 
 /*

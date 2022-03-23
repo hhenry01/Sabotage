@@ -146,6 +146,7 @@ C_SRCS += main.c
 C_SRCS += gps.c
 C_SRCS += bluetooth.c
 C_SRCS += debug.c
+C_SRCS += touch_to_hps.c
 CXX_SRCS :=
 ASM_SRCS :=
 

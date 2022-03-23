@@ -4,7 +4,7 @@
  * Machine generated for CPU 'Nios2' in SOPC Builder design 'Computer_System'
  * SOPC Builder design path: ../../Computer_System.sopcinfo
  *
- * Generated: Fri Mar 11 15:20:13 PST 2022
+ * Generated: Tue Mar 22 23:21:24 PDT 2022
  */
 
 /*
@@ -72,7 +72,7 @@
 #define RESET_REGION_BASE 0x0
 #define RESET_REGION_SPAN 32
 #define SDRAM_REGION_BASE 0x20
-#define SDRAM_REGION_SPAN 33554400
+#define SDRAM_REGION_SPAN 67108832
 #define VGA_SUBSYSTEM_CHAR_BUF_SUBSYSTEM_ONCHIP_SRAM_REGION_BASE 0x9000000
 #define VGA_SUBSYSTEM_CHAR_BUF_SUBSYSTEM_ONCHIP_SRAM_REGION_SPAN 8192
 
