@@ -69,7 +69,9 @@ typedef struct {
 
 void sendCommand(int cmd, FILE *fp);
 
-char getResponse(FILE *fp);
+int getResponse(FILE *fp);
+
+int TouchLookup(Point p);
 
 // initialize touch screen controller
 int Init_Touch();

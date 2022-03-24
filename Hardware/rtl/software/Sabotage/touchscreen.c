@@ -19,10 +19,14 @@ void sendCommand(int cmd, FILE *fp){
 }
 
 // receive a response packet from the touch screen controller
-char getResponse(FILE *fp){
+int getResponse(FILE *fp){
     //while((ts_status & 0x01) != 0x01);
     //return TS_RXDATA;
     return getc(fp);
+}
+
+int TouchLookup(Point p){
+    return 0;
 }
 
 
@@ -36,7 +40,8 @@ int Init_Touch() {
 	//usleep(1000000);
 
 	FILE *fp;
-	fp = fopen("/dev/GPS_UART", "r+");
+    Point p;
+	fp = fopen("/dev/TOUCH_UART", "r+");
 
 	if (!fp) return -1;
 
@@ -48,7 +53,7 @@ int Init_Touch() {
 	printf("Successfully loaded touch screen, waiting for touch...\n");
 
 	while(1) {
-		int p = getc(fp);
+		int p = getResponse(fp);
 		//printf("here\n");
 		if ((p & 0x80) == 0x80) {
 			if ((p & 0x81) == 0x81) {
@@ -56,8 +61,9 @@ int Init_Touch() {
 				ts_status = 0;
 			}
 			else if ((p & 0x81) == 0x80 && ts_status == 0) {
-				GetRelease(fp);
+				p = GetRelease(fp);
 				ts_status = 1;
+                break;
 			} else {
 				GetPress(fp);
 				ts_status = 0;
@@ -66,7 +72,7 @@ int Init_Touch() {
 	}
 
 	fclose(fp);
-	return 0;
+	return TouchLookup(p);
 }
 
 
@@ -106,10 +112,10 @@ void WaitForRead() {
 Point GetPress(FILE *fp){
     Point p1;
 
-    int x_1 = getc(fp);
-	int x_2 = getc(fp);
-    int y_1 = getc(fp);
-    int y_2 = getc(fp);
+    int x_1 = getResponse(fp);
+	int x_2 = getResponse(fp);
+    int y_1 = getResponse(fp);
+    int y_2 = getResponse(fp);
 
     p1.x = ((x_1 + 1) + (x_2 << 8)) / 5.12;
     p1.y = ((y_1 + 1) + (y_2 << 8)) / 8.53;
@@ -125,10 +131,10 @@ Point GetPress(FILE *fp){
 Point GetRelease(FILE *fp){
     Point p1;
 
-    int x_1 = getc(fp);
-    int x_2 = getc(fp);
-    int y_1 = getc(fp);
-    int y_2 = getc(fp);
+    int x_1 = getResponse(fp);
+    int x_2 = getResponse(fp);
+    int y_1 = getResponse(fp);
+    int y_2 = getResponse(fp);
 
     p1.x = ((x_1 + 1) + (x_2 << 8)) / 5.12;
     p1.y = ((y_1 + 1) + (y_2 << 8)) / 8.53;
