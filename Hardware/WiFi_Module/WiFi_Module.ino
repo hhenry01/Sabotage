@@ -11,7 +11,25 @@ const char* host = "http://6e4f-185-153-179-46.ngrok.io";
 const char* jsonStructure =\
   "{\"SessionID\":\"%s\",\"Coord\":{\"lat\":\"%s\",\"lon\":\"%s\"},\"NumPlayers\":\"%s\",\"Win\":\"%s\"}";
 
+const char* accessPointPW = "l2b-11_sabotage"; // Must be 8 characters long or it won't be set
+
+WiFiServer server(80); // Needed for access point
+
 //--------------------------Helper Functions-------------------------//
+// Sets up the ESP8266 as WiFi access point (which will not actually have internet)
+void setupAP() {
+  WiFi.mode(WIFI_AP);
+
+  // Get last two bytes of MAC address for a unique identifier
+  uint8_t mac[WL_MAC_ADDR_LENGTH];
+  WiFi.softAPmacAddress(mac);
+  String macID = String(mac[WL_MAC_ADDR_LENGTH - 2], HEX) +
+                 String(mac[WL_MAC_ADDR_LENGTH - 1], HEX);
+  macID.toUpperCase();
+  Serial.println("MAC ID: " + macID);
+  WiFi.softAP((String("Sabotage-") + macID).c_str(), accessPointPW);
+  server.begin();
+}
 
 // Connect the esp8266 to the WiFi specified in the constants above
 void connectWiFi() {
@@ -92,6 +110,7 @@ void setup() {
   Serial.println();
   Serial.println();
   connectWiFi();
+  setupAP();
 }
 
 void loop() {
