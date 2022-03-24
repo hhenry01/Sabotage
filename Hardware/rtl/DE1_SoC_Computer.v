@@ -1,10 +1,12 @@
 // Serial pins. Use GPIO_0 (inner bridge)
-`define WIFI_UART_RXP 30
-`define WIFI_UART_TXP 31
-`define BT_UART_RXP   32
-`define BT_UART_TXP   33
-`define GPS_UART_RXP  34
-`define GPS_UART_TXP  35
+`define TOUCH_UART_RXP 	28
+`define TOUCH_UART_TXP 	29
+`define WIFI_UART_RXP  	30
+`define WIFI_UART_TXP 	31
+`define BT_UART_RXP   	32
+`define BT_UART_TXP   	33
+`define GPS_UART_RXP  	34
+`define GPS_UART_TXP  	35
 
 module DE1_SoC_Computer (
 	////////////////////////////////////
@@ -577,6 +579,10 @@ Computer_System The_System (
 	// WiFi serial
 	.wifi_uart_rxd(GPIO_0[`WIFI_UART_RXP]),
 	.wifi_uart_txd(GPIO_0[`WIFI_UART_TXP]),
+	
+	// Touch serial
+	.touch_uart_rxd(GPIO_0[`TOUCH_UART_RXP]),
+	.touch_uart_txd(GPIO_0[`TOUCH_UART_TXP]),
 );
 
 
