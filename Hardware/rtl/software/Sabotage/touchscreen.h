@@ -74,7 +74,7 @@ int getResponse(FILE *fp);
 int TouchLookup(Point p);
 
 // initialize touch screen controller
-int Init_Touch();
+int Init_Touch(FILE *fp);
 
 int ScreenTouched(FILE *fp);
 

@@ -92,15 +92,15 @@ int TouchLookup(Point p){
 /***************************************************************************** 
 ** Initialize touch screen controller
 *****************************************************************************/ 
-int Init_Touch() {
+int Init_Touch(FILE *fp) {
     // Program 6850 and baud rate generator to communicate with touch screen
 	//TS_CONTROL 	= 0x15;
 	//TS_BAUD 	= 0x05;
 	//usleep(1000000);
 
-	FILE *fp;
+	//FILE *fp;
     Point p;
-	fp = fopen("/dev/TOUCH_UART", "r+");
+	//fp = fopen("/dev/TOUCH_UART", "r+");
 
 	if (!fp) return -1;
 
@@ -130,7 +130,7 @@ int Init_Touch() {
 		}
 	}
 
-	fclose(fp);
+	//fclose(fp);
 	return TouchLookup(p);
 }
 
