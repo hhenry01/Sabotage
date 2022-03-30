@@ -9,6 +9,11 @@
 //#define TS_RXDATA	(*(volatile unsigned char *)(0x84000232))
 //#define TS_BAUD		(*(volatile unsigned char *)(0x84000234))
 
+#define KEYPAD_TOPLEFT_X 		280
+#define KEYPAD_TOPLEFT_Y 		40
+#define KEYPAD_BOTTOMRIGHT_X	400
+#define KEYPAD_BOTTOMRIGHT_Y	200
+
 int ts_status = 1;
 
 // send a command packet to the touch screen controller
@@ -25,7 +30,61 @@ int getResponse(FILE *fp){
     return getc(fp);
 }
 
+/*
+ *  7  8  9
+ *  4  5  6
+ *  1  2  3
+ *  0  e  c
+ */
+
 int TouchLookup(Point p){
+	char dic[12] = "0123456789ec";
+	int width = (KEYPAD_BOTTOMRIGHT_X - KEYPAD_TOPLEFT_X) / 3;
+	int height = (KEYPAD_BOTTOMRIGHT_Y - KEYPAD_TOPLEFT_Y) / 4;
+
+	// check the press is in the keypad range
+	if (p.x > KEYPAD_TOPLEFT_X && p.x < KEYPAD_BOTTOMRIGHT_X &&
+			p.y > KEYPAD_TOPLEFT_Y && p.y < KEYPAD_BOTTOMRIGHT_Y){
+		// check its row
+		if (p.x < KEYPAD_TOPLEFT_X + width) {
+			// check the key
+			if (p.y < KEYPAD_TOPLEFT_Y + height){
+				return dic[7];
+			} else if (p.y < KEYPAD_TOPLEFT_Y + 2 * height) {
+				return dic[8];
+			} else {
+				return dic[9];
+			}
+		} else if (p.x < KEYPAD_TOPLEFT_X + 2 * width){
+			// check the key
+			if (p.y < KEYPAD_TOPLEFT_Y + height){
+				return dic[4];
+			} else if (p.y < KEYPAD_TOPLEFT_Y + 2 * height) {
+				return dic[5];
+			} else {
+				return dic[6];
+			}
+		} else if (p.x < KEYPAD_TOPLEFT_X + 3 * width){
+			// check the key
+			if (p.y < KEYPAD_TOPLEFT_Y + height){
+				return dic[1];
+			} else if (p.y < KEYPAD_TOPLEFT_Y + 2 * height) {
+				return dic[2];
+			} else {
+				return dic[3];
+			}
+		} else {
+			// check the key
+			if (p.y < KEYPAD_TOPLEFT_Y + height){
+				return dic[0];
+			} else if (p.y < KEYPAD_TOPLEFT_Y + 2 * height) {
+				return dic[10];
+			} else {
+				return dic[11];
+			}
+		}
+	}
+
     return 0;
 }
 
