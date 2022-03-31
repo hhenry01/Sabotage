@@ -65,29 +65,24 @@ typedef struct {
     unsigned char data[MAX_INTERRUPT_IN_TRANSFER_SIZE-4];
 } Response;
 
+extern FILE* fp_touch;
 
+void sendCommand(int cmd);
 
-void sendCommand(int cmd, FILE *fp);
+int getResponse(void);
 
-int getResponse(FILE *fp);
-
-int TouchLookup(Point p);
+char TouchLookup(Point p);
 
 // initialize touch screen controller
-int Init_Touch(FILE *fp);
+char getTouchChar(void);
 
-int ScreenTouched(FILE *fp);
+int ScreenTouched(void);
 
-int checkReleased(FILE *fp);
+int checkReleased(void);
 
-void WaitForTouch(FILE *fp);
+void WaitForTouch(void);
 
-//void WaitForRelease();
+Point GetPress(void);
 
-//void WaitForRead();
+Point GetRelease(void);
 
-Point GetPress(FILE *fp);
-
-Point GetRelease(FILE *fp);
-
-//void testTouch(void);
