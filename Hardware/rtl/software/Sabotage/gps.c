@@ -7,12 +7,6 @@
 char gprmc_buffer_parsed[BUFFER_SIZE][BUFFER_SIZE];
 char gpgga_buffer_parsed[BUFFER_SIZE][BUFFER_SIZE];
 
-char latitude[10];
-char longitude[11];
-
-char NS = 0;
-char EW = 0;
-
 int gps_driver() {
 
 	FILE *fp;
@@ -27,55 +21,39 @@ int gps_driver() {
 	char gpgga_buffer_raw[BUFFER_SIZE] = "";
 
 	int bytes = 0;
-	while (1) {
-		bytes = read_serial (fp, "GPRMC", gprmc_buffer_raw, BUFFER_SIZE);
-		if (!bytes) {
-			printf("err %d \n", bytes);
-			continue;
-		}
-		//printf("Buffer: %s\n", gprmc_buffer_raw);
 
-		// Parse the raw buffer using the ',' delimiter
-		parse_raw_buffer(gprmc_buffer_raw, gprmc_buffer_parsed);
-
-
-		printf("IsValid: %s\n", strcmp(gprmc_buffer_parsed[STAT], "A") == 0 ? "YES" : "NO");
-		printf("Latitude: %s\n", gprmc_buffer_parsed[LAT]);
-		printf("Longitude: %s\n", gprmc_buffer_parsed[LON]);
-
-
-		bytes = read_serial (fp, "GPGGA", gpgga_buffer_raw, BUFFER_SIZE);
-		if (!bytes) {
-			printf("err %d \n", bytes);
-			continue;
-		}
-		//printf("Buffer: %s\n", gpgga_buffer_raw);
-
-
-		// Parse the raw buffer using the ',' delimiter
-		parse_raw_buffer(gpgga_buffer_raw, gpgga_buffer_parsed);
-
-		//get_decimal_degrees(latitude, longitude);
-		printf("Satellites Used: %s \n", gpgga_buffer_parsed[7]);
-
-		memcpy(latitude, gprmc_buffer_parsed[LAT], 10);
-		memcpy(longitude, gprmc_buffer_parsed[LAT], 11);
-
-		NS = gprmc_buffer_parsed[N_S][0];
-		EW = gprmc_buffer_parsed[E_W][0];
-
-		//send_formated_string();
+	bytes = read_serial (fp, "GPRMC", gprmc_buffer_raw, BUFFER_SIZE);
+	if (!bytes) {
+		printf("err %d \n", bytes);
+		return -1;
 	}
+
+	// Parse the raw buffer using the ',' delimiter
+	parse_raw_buffer(gprmc_buffer_raw, gprmc_buffer_parsed, ',');
+
+	bytes = read_serial (fp, "GPGGA", gpgga_buffer_raw, BUFFER_SIZE);
+	if (!bytes) {
+		printf("err %d \n", bytes);
+		return -1;
+	}
+
+	// Parse the raw buffer using the ',' delimiter
+	parse_raw_buffer(gpgga_buffer_raw, gpgga_buffer_parsed, ',');
+
+	printf("Satellites Used: %s \n", gpgga_buffer_parsed[7]);
+
+	memcpy(latitude, gprmc_buffer_parsed[LAT], 10);
+	memcpy(longitude, gprmc_buffer_parsed[LAT], 11);
+
+	NS = gprmc_buffer_parsed[N_S][0];
+	EW = gprmc_buffer_parsed[E_W][0];
+
+	printf("IsValid: %s\n", strcmp(gprmc_buffer_parsed[STAT], "A") == 0 ? "YES" : "NO");
+	printf("Latitude: %s\n", latitude);
+	printf("Longitude: %s\n", longitude);
 
 	fclose(fp);
 	return 0;
-}
-
-void send_formated_string(void) {
-	char data[50];
-
-	sprintf(data, "$9,%s,%c,%s,%c,0,2*\n",latitude,NS,longitude,EW);
-
 }
 
 /**
@@ -99,6 +77,7 @@ int get_decimal_degrees(char* latitude, char* longitude) {
 	memcpy(str_lat_degrees, &tempLat[0], 2);
 	printf("Latitude degrees: %s", str_lat_degrees);
 	int lat_degrees = atoi(str_lat_degrees);
+	printf("Latitude degrees: %d", lat_degrees);
 
 	char str_lat_minutes[8];
 	memcpy(str_lat_minutes, &tempLat[2],7);
@@ -114,18 +93,18 @@ int get_decimal_degrees(char* latitude, char* longitude) {
 	return 0;
 }
 
-void parse_raw_buffer(char* input_buffer, char output_buffer[][BUFFER_SIZE]) {
+void parse_raw_buffer(char* input_buffer, char output_buffer[][BUFFER_SIZE], char delimiter) {
 
 	int index = 0;
 	int section = 0;
 	int inner_index = 0;
 	char c = 0;
 
-	while ((c = input_buffer[index]) != NULL) {
-		if (c == ',') {
+	while ((c = input_buffer[index]) != '\0') {
+		if (c == delimiter) {
 			if (inner_index == 0) output_buffer[section][inner_index] = '0';
 
-			output_buffer[section][inner_index + 1] = NULL;
+			output_buffer[section][inner_index + 1] = '\0';
 
 			section++;
 			inner_index = 0;
@@ -171,7 +150,7 @@ int read_serial(FILE *fp, char* type, char* buffer, int size) {
 	outputSentence[i] = getc(fp);
   }
   // Strings need to be null terminated.
-  outputSentence[5] = NULL;
+  outputSentence[5] = '\0';
 
   if (strcmp(outputSentence, type) != 0) goto jump;
 
@@ -185,20 +164,9 @@ int read_serial(FILE *fp, char* type, char* buffer, int size) {
 	  xor_sum ^= prompt;
 	  if (++i >= size) return 0;
   }
-  while(++bytes_read < size) buffer[bytes_read] = NULL;
-/*
-  char extracted_crc[2] = "";
-  i = 0;
-  for(i = 0; i < 2; i++) {
-	  prompt = getc(fp);
-	  printf("here %c\n", prompt);
-	  extracted_crc[i] = prompt;
-  }
-  extracted_crc[2] = NULL;
+  while(++bytes_read < size) buffer[bytes_read] = '\0';
 
-  char expected_xor = (char) strtoul(extracted_crc, NULL, 16);
-
-  printf("Extracted: %c and Computed: %c\n", expected_xor, xor_sum);*/
+  //TODO: Do checksum verification
 
   return bytes_read;
 }
