@@ -9,6 +9,7 @@
 #include "VGA.h"
 #include <stdio.h>
 #include <string.h>
+#include "touchscreen.h"
 
 int screen_col;
 int screen_row;
@@ -23,7 +24,6 @@ FILE* fp_touch;
 int id_pos = 0;
 
 
-
 /**
  * Recevies key presses and displays output onto the 
  * the touch screen
@@ -33,17 +33,15 @@ int VGA_driver(void) {
 
   char input = 0;
 
-  //-- Cold start
-  if (coldStart() < 0) return -1;
+  //-- If its a cold start
+  if (is_cold) {
+	  if (coldStart() < 0) return -1;
+	  is_cold = 0;
+  }
 
   input = getTouchChar();
-  input_handler('1');
+  input_handler(input);
 
-  for(;;);
-
-  printf ("\nExiting program\n");
-
-  close();
   return 0;
 }
 
@@ -66,6 +64,7 @@ int coldStart(void) {
 
   init_numpad_array();
   draw_numpad();
+  return 0;
 }
 
 void init_numpad_array(void) {
@@ -143,8 +142,7 @@ void input_handler(char input) {
     //-- Only when reached the end of the string
     if (id_pos == ID_SIZE) {
       user_id[id_pos] = '\0';
-      // Call send to WIFI module
-
+      memcpy(user_id_global, user_id, ID_SIZE); 	// Take local file variable into global to send to wifi
       clear_user_id();
     }
     break;

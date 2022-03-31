@@ -21,7 +21,9 @@
 
 #define ID_SIZE 4
 
-extern char user_id[ID_SIZE];
+extern int is_cold;
+extern char user_id_global[ID_SIZE];
+char user_id[ID_SIZE];
 
 char str_numpad[NUM_KEYS][STRING_SIZE];
 
