@@ -1,2 +1,2 @@
-pyb==0.5
+pymongo==4.0.2
 requests==2.22.0
