@@ -54,7 +54,7 @@ loc4 = {  # Totem
     }
 }
 
-loc5 = {
+loc5 = {  # Kaiser
     "SessionID": "1918",
     "Coord": ["49.26236", "-123.25013"],
     "Metrics": {
@@ -62,8 +62,16 @@ loc5 = {
     }
 }
 
+loc6 = {  # EDC
+    "SessionID": "501",
+    "Coord": ["49.26229", "-123.24820"],
+    "Metrics": {
+        "NumPlayers": "0"
+    }
+}
+
 testLeaveSession = {
-    "SessionID": "a5e9",
+    "SessionID": "1519",
     "Coord": ["49.8814", "-119.47856"],
     "Metrics": {
         "NumPlayers": 1  # Leave the others as strings
@@ -89,5 +97,5 @@ testLeaveUser = {
 
 moveLat = "49.26753"  # Life building
 moveLon = "-123.24978"
-locations = [loc0, loc1, loc2, loc3, loc4, loc5]
+locations = [loc0, loc1, loc2, loc3, loc4, loc5, loc6]
 playerLoc = ["49.542", "-123.222"]

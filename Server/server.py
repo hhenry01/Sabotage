@@ -14,7 +14,7 @@ USER_ID_LENGTH = 4  # 4 digits
 WIN_COOLDOWN = 3600  # 1 hour
 IDLE_TIMER = 600  # Kick an idle user after 10 minutes
 SABOTAGE_DURATION = 30  # 30 seconds
-COUNTS_AS_CLOSE = 4  # Totem is within range of Gage and vice versa
+COUNTS_AS_CLOSE = 0.02  # Totem is within range of Gage and vice versa
 DEFAULT_SABTOKENS = 3  # New playes get 3 tokens starting off
 WIN_SABTOKENS = 2  # Earn 2 tokens for winning a game
 SCORE_BASE = 5000  # 5000 seconds (1.39 h) until the score goes to 0
@@ -31,9 +31,10 @@ sessionsCluster = db["Sessions"]
 
 
 # Given a player location [lat, lon], return a list of nearby sessions.
-def getNearby(playerLoc):  # BROKEN
+def getNearby(playerLoc):
     def howClose(lat0, lon0, lat1, lon1):
-        return abs((float(lat1) - float(lat0)) / (float(lon1) - float(lon0)))
+        return math.sqrt((float(lat1) - float(lat0))**2
+                         + (float(lon1) - float(lon0))**2)
 
     locations = sessionsCluster.find()
     closeLocs = filter(
@@ -215,7 +216,7 @@ class HTTPRequestHandler(BaseHTTPRequestHandler):
         userID = message["UserID"]
         user = usersCluster.find_one({"UserID": userID})
         if user is None:
-            print("User not found int database")
+            print("User not found in database")
             self.send_response(400)
             self.end_headers()
             self.wfile.write("User not found in database".encode())
