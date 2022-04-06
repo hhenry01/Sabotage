@@ -7,11 +7,15 @@ const char* ssid     = "This ain't a hotspot";
 const char* password = "henry123";
 
 // Temporary host for development purposes.
-const char* host = "http://6e4f-185-153-179-46.ngrok.io";
+const String remoteServer = "http://1ed6-66-115-146-77.ngrok.io";
+const String route = "/de1";
+const String host = remoteServer + route;
+//const String host = remoteServer;
 const char* jsonStructure =\
   "{\"SessionID\":\"%s\",\"Coord\":{\"lat\":\"%s\",\"lon\":\"%s\"},\"NumPlayers\":\"%s\",\"Win\":\"%s\"}";
+const int jsonBufferSize = 200;
 
-const char* accessPointPW = "l2b-11_sabotage"; // Must be 8 characters long or it won't be set
+const char* accessPointPW = "l2b-11_sabotage"; // Must be at least 8 characters long or it won't be set
 
 WiFiServer server(80); // Needed for access point
 
@@ -55,10 +59,11 @@ void connectWiFi() {
 
 // Fill our JSON message with the relevant paramters (see README)
 String constructJSON(String sessionID, String lat, String lon, String numPlayers, String win) {
-  char buffer[50];
-  sprintf(buffer, 
-          jsonStructure,
-          sessionID.c_str(), lat.c_str(), lon.c_str(), numPlayers.c_str(), win.c_str());
+  char buffer[jsonBufferSize];
+  snprintf(buffer,
+           jsonBufferSize, 
+           jsonStructure,
+           sessionID.c_str(), lat.c_str(), lon.c_str(), numPlayers.c_str(), win.c_str());
   return String(buffer);
 }
 
@@ -109,8 +114,8 @@ void setup() {
   delay(100);
   Serial.println();
   Serial.println();
-  connectWiFi();
   setupAP();
+  connectWiFi();
 }
 
 void loop() {
@@ -128,10 +133,11 @@ void loop() {
     Serial.println(data);
     int statusCode = http.POST(data);
     if (statusCode > 0) {
-      if (statusCode = HTTP_CODE_OK) { // 200
+      if (statusCode == HTTP_CODE_OK) { // 200
         Serial.println("POST successful!");
-      } else if (statusCode = HTTP_CODE_BAD_REQUEST) { // 400
+      } else if (statusCode == HTTP_CODE_BAD_REQUEST) { // 400
         Serial.println("POST failed with code 400!");
+        Serial.println(http.getString());
       } else {
         Serial.println("POST failed with unknown status code!");
       }

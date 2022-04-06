@@ -18,7 +18,7 @@ POST requests from the De1-SoC will be a subset of the following fields. The onl
 ```
 ## Mobile App POST
 POST requests from the mobile app will be a subset of the following fields. The only mandatory field
-is the user ID.
+is the user ID. If SessionID is -1, the user is removed from their current session.
 ```
 {
   "UserID":"<Integer ID of user>",
@@ -63,13 +63,19 @@ Get request format:
 These requests should be routed to `/lobby`
 Poll whether the session a user is in is under the effects of a sabotage or if the requesting user won.
 It also returns the number of players in a specified session.
+UserID is a variable key determined by whichver users win.
 ```
 {
   "SaboteurID": "<ID of whoever initiated the sabotage>"
   "Sabotage": "<integer>",
   "Duration": "<float (seconds)>",
   "NumPlayers": "<integer>",
-  "Win": <bool>
+  "SabTokens": <integer>,
+  "Win": <bool>,
+  "Leaderboard": [
+    {<UserID>: <integer score>},
+    ...
+  ]
 }
 ```
 Get request format:
@@ -99,8 +105,7 @@ Essentially a table to see which IDs have been allotted to users already.
 {
   {
     UserID: <integer>,
-    NearbySessions: {
-      [
+    NearbySessions: [
         {
           SessionID: <session ID>,
           Coord: [lat, lon]
@@ -110,14 +115,14 @@ Essentially a table to see which IDs have been allotted to users already.
           Coord: [lat, lon]
         },
         ...
-      ]
-    },
+    ],
     CurrSession: {
       ID: <session ID>,
       Start: <float time when session began>,
       Timeout: <float time value when the CurrSession should be invalidated>,
       Win: <bool>
     },
+    SabTokens: <integer number of sabotage tokens possessed>
     Timeout: <float time value when the user is counted as inactive and removed>
   },
   ...
@@ -140,6 +145,15 @@ Essentially a table to see which IDs have been allotted to users already.
       SabotageID: <Sabotage number>,
       Duration: <Time until sabotage expires>
     },
+    LeaderBoard: [
+      {<UserID>: <integer score>},
+      ...
+    ]
+    Moved: <boolean>
   ...
 }
 ```
+The "Moved" field is not always present. It's purpose is to be present and "True"
+whenever the De1-SoC moves. Any "Moved" De1-SoC's must be checked manually and
+confirmed whether it is intentional or if it is theft. UserID is a variable key
+that is determined by whoever wins.
