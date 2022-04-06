@@ -93,9 +93,12 @@ def initDB():
             x["Metrics"]["NumPlayers"] = int(loc["Metrics"]["NumPlayers"])
             sessionsCluster.insert_one(x)
     # Test leave with -1 flag
+    testLeaveSession = cp.deepcopy(Test_Data.testLeaveSession)
+    testLeaveSession["Metrics"]["NumPlayers"] =\
+        int(testLeaveSession["Metrics"]["NumPlayers"])
     sessionsCluster.update_one({
-        "SessionID": Test_Data.testLeaveSession["SessionID"],
-    }, {"$set": Test_Data.testLeaveSession}, upsert=True)  # Always overwrite
+        "SessionID": testLeaveSession["SessionID"],
+    }, {"$set": testLeaveSession}, upsert=True)  # Always overwrite
     if (userIDCluster.find_one(
             {"ID": Test_Data.testLeaveUser["UserID"]}) is None):
         userIDCluster.insert_one(

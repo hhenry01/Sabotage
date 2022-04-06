@@ -74,9 +74,10 @@ testLeaveSession = {
     "SessionID": "1519",
     "Coord": ["49.8814", "-119.47856"],
     "Metrics": {
-        "NumPlayers": 1  # Leave the others as strings
+        "NumPlayers": "1"  # Leave the others as strings
     }
 }
+
 testLeaveUser = {
     "UserID": "9001",
     "NearbySessions": [

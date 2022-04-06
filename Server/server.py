@@ -183,7 +183,7 @@ class HTTPRequestHandler(BaseHTTPRequestHandler):
                         score = calcScore(
                             winningUser["CurrSession"]["Start"],
                             time.time(),
-                            session["Metrics"]["NumPlayers"]
+                            int(session["Metrics"]["NumPlayers"])
                         )
                         sessionsCluster.update_one({
                             "SessionID": sessionID
