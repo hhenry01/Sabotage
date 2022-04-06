@@ -63,18 +63,19 @@ int getResponse( void )
 
 	int ch = 0;
 
-	fd_set touch;
+	fd_set touch_input;
 	struct timeval timeout;
 
 
 	timeout.tv_sec = 1;
 	timeout.tv_usec = 0;
 
-	FD_ZERO( &touch );
-	FD_SET( fileno(fp_touch), &touch );
+	FD_ZERO( &touch_input );
+	FD_SET( fileno(fp_touch), &touch_input );
 
-	if( FD_ISSET(fileno(fp_touch), &touch) ) {
+	if( FD_ISSET(fileno(fp_touch), &touch_input) ) {
 		n_read = read( fileno(fp_touch), &ch, 1 );
+		printf("Character input %c\n\r", ch);
 		//if( n_read < 0 ) printf( "read()\n" );
 	}
 

@@ -13,7 +13,7 @@
 #include "gps.h"
 #include "debug.h"
 
-#define GPS 1
+#define GPS 0
 
 char user_id_global[ID_SIZE];
 char latitude[10] = "\0";
@@ -57,6 +57,7 @@ int main(void)
 			}
 			doGPS = 0;
 		}
+
 	}
 
 	close_driver();

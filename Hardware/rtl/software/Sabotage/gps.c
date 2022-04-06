@@ -12,10 +12,7 @@ int gps_driver() {
 	FILE *fp;
 	fp = fopen("/dev/GPS_UART", "r+");
 
-	FILE *fp_wifi;
-	fp_wifi = fopen("/dev/WiFi_UART", "r+");
-
-	if (!fp || !fp_wifi) {
+	if (!fp) {
 		printf("Error\n");
 		return -1;
 	}
@@ -43,8 +40,7 @@ int gps_driver() {
 	// Parse the raw buffer using the ',' delimiter
 	parse_raw_buffer(gpgga_buffer_raw, gpgga_buffer_parsed, ',');
 
-	memcpy(latitude, gprmc_buffer_parsed[LAT-1], 10);
-	memcpy(longitude, gprmc_buffer_parsed[LON-1], 11);
+	get_decimal_degrees(latitude, longitude);
 
 	NS = gprmc_buffer_parsed[N_S-1][0];
 	EW = gprmc_buffer_parsed[E_W-1][0];
@@ -53,19 +49,64 @@ int gps_driver() {
 	return 0;
 }
 
-	int lat_degrees = atoi(str_lat_degrees);
-	printf("Latitude degrees: %d", lat_degrees);
+/**
+ * Takes a buffer and produces latitude and longitude in decimal degrees format
+ *
+ * returns -1 if error and 0 otherwise
+ */
+int get_decimal_degrees(char latitude[10], char longitude[11]) {
+	char tempLat[10];
+	char tempLong[11];
+	char str_lat_degrees[2];
+	char str_lat_minutes[7];
+	int lat_degrees;
+	float lat_decimal;
+	float lat_degrees_decimal;
 
-	char str_lat_minutes[8];
+	char str_long_degrees[3];
+	char str_long_minutes[8];
+	int long_degrees;
+	float long_decimal;
+	float long_degrees_decimal;
+
+
+	memcpy(tempLat, gprmc_buffer_parsed[LAT -1], 9);
+	memcpy(tempLong, gprmc_buffer_parsed[LON - 1], 10);
+
+	/* degrees minute format - lat: ddmm.mmmm and long: dddmm.mmmm
+	 *
+	 * Conversion decimal = degrees + minutes/60
+	 * */
+
+	//-- Latitude Convertion
+	memcpy(str_lat_degrees, &tempLat[0], 2);
+	lat_degrees = atoi(str_lat_degrees);
+	//printf("Latitude degrees: %d\n", lat_degrees);
+
 	memcpy(str_lat_minutes, &tempLat[2],7);
-	printf("Latitude minutes: %s", str_lat_minutes);
-	float lat_minutes = atof(str_lat_minutes);
+	//printf("Latitude minutes: %s\n", str_lat_minutes);
+	lat_decimal = atof(str_lat_minutes)/60;
 
-	float lat_decimal = lat_minutes/60;
-	printf("Latitude decimal: %f", lat_decimal);
+	//printf("Latitude decimal: %f\n", lat_decimal);
 
-	sprintf(latitude, "%s.%f", str_lat_degrees, lat_decimal);
-	printf("Latitude: %s", latitude);
+	lat_degrees_decimal = lat_degrees + lat_decimal;
+
+	sprintf(latitude, "%f", lat_degrees_decimal);
+	printf("Latitude degrees decimal: %s\n", latitude);
+
+	//-- Longitude Conversion
+	memcpy(str_long_degrees, &tempLong[0], 3);
+	long_degrees = atoi(str_long_degrees);
+	//printf("Longitude degrees: %d\n", long_degrees);
+
+	memcpy(str_long_minutes, &tempLong[3],7);
+	//printf("Longitude minutes: %s\n", str_long_minutes);
+	long_decimal = atof(str_long_minutes) /60;
+	//printf("Longitude decimal: %f\n", long_decimal);
+
+	long_degrees_decimal = long_degrees + long_decimal;
+	sprintf(longitude, "%f", long_degrees_decimal);
+	printf("Longitude degrees decimal: %s\n", longitude);
 
 	return 0;
 }
@@ -147,3 +188,4 @@ int read_serial(FILE *fp, char* type, char* buffer, int size) {
 
   return bytes_read;
 }
+
