@@ -11,9 +11,7 @@
 
 #include "VGA.h"
 #include "gps.h"
-#include "bluetooth.h"
 #include "debug.h"
-//#include "touchscreen.h"
 
 #define GPS 0
 

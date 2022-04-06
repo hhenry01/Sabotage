@@ -63,17 +63,17 @@ int getResponse( void )
 
 	int ch = 0;
 
-	fd_set keyboard;
+	fd_set touch;
 	struct timeval timeout;
 
 
 	timeout.tv_sec = 1;
 	timeout.tv_usec = 0;
 
-	FD_ZERO( &keyboard );
-	FD_SET( fileno(fp_touch), &keyboard );
+	FD_ZERO( &touch );
+	FD_SET( fileno(fp_touch), &touch );
 
-	if( FD_ISSET(fileno(fp_touch), &keyboard) ) {
+	if( FD_ISSET(fileno(fp_touch), &touch) ) {
 		n_read = read( fileno(fp_touch), &ch, 1 );
 		//if( n_read < 0 ) printf( "read()\n" );
 	}
