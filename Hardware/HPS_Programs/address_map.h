@@ -229,6 +229,30 @@
 #define BLUETOOTH_UART_USE_EOP_REGISTER 0
 
 /*
+ * Macros for device 'Touch_Data_Receive', class 'altera_avalon_pio'
+ * The macros are prefixed with 'TOUCH_DATA_RECEIVE_'.
+ * The prefix is the slave descriptor.
+ */
+#define TOUCH_DATA_RECEIVE_COMPONENT_TYPE altera_avalon_pio
+#define TOUCH_DATA_RECEIVE_COMPONENT_NAME Touch_Data_Receive
+#define TOUCH_DATA_RECEIVE_BASE 0xe0
+#define TOUCH_DATA_RECEIVE_SPAN 16
+#define TOUCH_DATA_RECEIVE_END 0xef
+#define TOUCH_DATA_RECEIVE_BIT_CLEARING_EDGE_REGISTER 1
+#define TOUCH_DATA_RECEIVE_BIT_MODIFYING_OUTPUT_REGISTER 0
+#define TOUCH_DATA_RECEIVE_CAPTURE 1
+#define TOUCH_DATA_RECEIVE_DATA_WIDTH 9
+#define TOUCH_DATA_RECEIVE_DO_TEST_BENCH_WIRING 0
+#define TOUCH_DATA_RECEIVE_DRIVEN_SIM_VALUE 0
+#define TOUCH_DATA_RECEIVE_EDGE_TYPE ANY
+#define TOUCH_DATA_RECEIVE_FREQ 100000000
+#define TOUCH_DATA_RECEIVE_HAS_IN 1
+#define TOUCH_DATA_RECEIVE_HAS_OUT 0
+#define TOUCH_DATA_RECEIVE_HAS_TRI 0
+#define TOUCH_DATA_RECEIVE_IRQ_TYPE NONE
+#define TOUCH_DATA_RECEIVE_RESET_VALUE 0
+
+/*
  * Macros for device 'Interval_Timer', class 'altera_avalon_timer'
  * The macros are prefixed with 'INTERVAL_TIMER_'.
  * The prefix is the slave descriptor.
@@ -287,7 +311,7 @@
 #define SYSID_SPAN 8
 #define SYSID_END 0x2047
 #define SYSID_ID 0
-#define SYSID_TIMESTAMP 1646352824
+#define SYSID_TIMESTAMP 1648015446
 
 /*
  * Macros for device 'VGA_Subsystem_VGA_Pixel_RGB_Resampler', class 'altera_up_avalon_video_rgb_resampler'

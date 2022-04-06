@@ -7,12 +7,6 @@
 char gprmc_buffer_parsed[BUFFER_SIZE][BUFFER_SIZE];
 char gpgga_buffer_parsed[BUFFER_SIZE][BUFFER_SIZE];
 
-char latitude[10];
-char longitude[11];
-
-char NS = 0;
-char EW = 0;
-
 int gps_driver() {
 
 	FILE *fp;
@@ -30,82 +24,35 @@ int gps_driver() {
 	char gpgga_buffer_raw[BUFFER_SIZE] = "";
 
 	int bytes = 0;
-	while (1) {
-		bytes = read_serial (fp, "GPRMC", gprmc_buffer_raw, BUFFER_SIZE);
-		if (!bytes) {
-			printf("err %d \n", bytes);
-			continue;
-		}
 
-		// Parse the raw buffer using the ',' delimiter
-		parse_raw_buffer(gprmc_buffer_raw, gprmc_buffer_parsed, ',');
-
-		bytes = read_serial (fp, "GPGGA", gpgga_buffer_raw, BUFFER_SIZE);
-		if (!bytes) {
-			printf("err %d \n", bytes);
-			continue;
-		}
-
-		// Parse the raw buffer using the ',' delimiter
-		parse_raw_buffer(gpgga_buffer_raw, gpgga_buffer_parsed, ',');
-
-		printf("Satellites Used: %s \n", gpgga_buffer_parsed[7]);
-
-		memcpy(latitude, gprmc_buffer_parsed[LAT], 10);
-		memcpy(longitude, gprmc_buffer_parsed[LAT], 11);
-
-		NS = gprmc_buffer_parsed[N_S][0];
-		EW = gprmc_buffer_parsed[E_W][0];
-
-		printf("IsValid: %s\n", strcmp(gprmc_buffer_parsed[STAT], "A") == 0 ? "YES" : "NO");
-		printf("Latitude: %s\n", latitude);
-		printf("Longitude: %s\n", longitude);
-		printf("Looped Henry\n");
-
-		send_formated_string(fp_wifi);
+	bytes = read_serial (fp, "GPRMC", gprmc_buffer_raw, BUFFER_SIZE);
+	if (!bytes) {
+		printf("err %d \n", bytes);
+		return -1;
 	}
+
+	// Parse the raw buffer using the ',' delimiter
+	parse_raw_buffer(gprmc_buffer_raw, gprmc_buffer_parsed, ',');
+
+	bytes = read_serial (fp, "GPGGA", gpgga_buffer_raw, BUFFER_SIZE);
+	if (!bytes) {
+		printf("err %d \n", bytes);
+		return -1;
+	}
+
+	// Parse the raw buffer using the ',' delimiter
+	parse_raw_buffer(gpgga_buffer_raw, gpgga_buffer_parsed, ',');
+
+	memcpy(latitude, gprmc_buffer_parsed[LAT-1], 10);
+	memcpy(longitude, gprmc_buffer_parsed[LON-1], 11);
+
+	NS = gprmc_buffer_parsed[N_S-1][0];
+	EW = gprmc_buffer_parsed[E_W-1][0];
 
 	fclose(fp);
 	return 0;
 }
 
-void send_formated_string(FILE* fp) {
-	char data[50];
-
-	sprintf(data, "$9,%s,%c,%s,%c,0,2*\n\r\0",latitude,NS,longitude,EW);
-
-	putString(data, 50, fp);
-}
-
-void putString(char* string, int size, FILE* fp) {
-	char c = 0;
-	int i = 0;
-	while ((c = string[i]) != '\0' && i < size) {
-		putc(c, fp);
-		i++;
-	}
-}
-
-/**
- * Takes a buffer and produces latitude and longitude in decimal degrees format
- *
- * returns -1 if error and 0 otherwise
- */
-int get_decimal_degrees(char* latitude, char* longitude) {
-	char tempLat[10];
-	char tempLong[11];
-
-	memcpy(tempLat, gprmc_buffer_parsed[LAT], 9);
-	memcpy(tempLong, gprmc_buffer_parsed[LAT], 10);
-
-	/* degrees minute format - lat: ddmm.mmmm and long: dddmm.mmmm
-	 *
-	 * Conversion decimal = degrees + minutes/60
-	 * */
-
-	char str_lat_degrees[3];
-	memcpy(str_lat_degrees, &tempLat[0], 2);
-	printf("Latitude degrees: %s", str_lat_degrees);
 	int lat_degrees = atoi(str_lat_degrees);
 	printf("Latitude degrees: %d", lat_degrees);
 

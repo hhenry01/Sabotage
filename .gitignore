@@ -35,8 +35,9 @@
 **/software/Sabotage/*.elf
 **/software/Sabotage/*.map
 **/software/Sabotage/*.objdump
-**/software/Sabotage_bsp/obj/
-**/software/Sabotage_bsp/libhal_bsp.a
 **/software/Sabotage/obj/default/*.o
 **/software/Sabotage/obj/default/*.d
-**/sofware/Sabotage/.settings/language.settings.xml
+**/software/Sabotage/.settings/language.settings.xml
+**/software/Sabotage_bsp/obj/
+**/software/Sabotage_bsp/libhal_bsp.a
+
