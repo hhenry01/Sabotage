@@ -234,6 +234,7 @@ class HTTPRequestHandler(BaseHTTPRequestHandler):
                         self.leaveSession(user, clear=True)
                         self.send_response(200)
                         self.end_headers()
+                        return
                     elif user["CurrSession"]["ID"] != sessionID:
                         print("User leaving previous session for new one")
                         oldSession = sessionsCluster.find_one({

@@ -98,4 +98,4 @@ testLeaveUser = {
 moveLat = "49.26753"  # Life building
 moveLon = "-123.24978"
 locations = [loc0, loc1, loc2, loc3, loc4, loc5, loc6]
-playerLoc = ["49.542", "-123.222"]
+playerLoc = ["49.26123932108985", "-123.24910854126884"]
