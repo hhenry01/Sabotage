@@ -40,17 +40,11 @@ int gps_driver() {
 	// Parse the raw buffer using the ',' delimiter
 	parse_raw_buffer(gpgga_buffer_raw, gpgga_buffer_parsed, ',');
 
-	printf("Satellites Used: %s \n", gpgga_buffer_parsed[7]);
+	memcpy(latitude, gprmc_buffer_parsed[LAT-1], 10);
+	memcpy(longitude, gprmc_buffer_parsed[LON-1], 11);
 
-	memcpy(latitude, gprmc_buffer_parsed[LAT], 10);
-	memcpy(longitude, gprmc_buffer_parsed[LAT], 11);
-
-	NS = gprmc_buffer_parsed[N_S][0];
-	EW = gprmc_buffer_parsed[E_W][0];
-
-	printf("IsValid: %s\n", strcmp(gprmc_buffer_parsed[STAT], "A") == 0 ? "YES" : "NO");
-	printf("Latitude: %s\n", latitude);
-	printf("Longitude: %s\n", longitude);
+	NS = gprmc_buffer_parsed[N_S-1][0];
+	EW = gprmc_buffer_parsed[E_W-1][0];
 
 	fclose(fp);
 	return 0;

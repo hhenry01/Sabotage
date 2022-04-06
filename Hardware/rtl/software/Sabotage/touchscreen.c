@@ -1,5 +1,14 @@
 #include <stdio.h>
 #include "touchscreen.h"
+#include <unistd.h>
+#include <signal.h>
+#include "sys/alt_alarm.h"
+#include <sys/time.h>
+#include <termios.h>
+#include <sys/types.h>
+#include <stdlib.h>
+#include <fcntl.h>
+
 
 
 // not communicate in this way, to be changed
@@ -16,10 +25,60 @@
 
 int ts_status = 1;
 
+alt_alarm timer;
+
+//alt_u32 sig_handler(void);
+//alt_u32 sig_handler(void) {
+//     //_exit(0);
+//}
 
 // receive a response packet from the touch screen controller
-int getResponse(void){
-    return getc(fp_touch);
+//int getResponse(void){
+////	alt_u32 clocks_per_uS = (1000 / 1000); // 1K uS per msec.
+////	alt_u32 debugclockspercall = clocks_per_uS * 200;//0;//00;
+////	char  c = 0;
+////	alt_alarm_start(&timer, debugclockspercall, sig_handler, NULL);
+////    c = getc(fp_touch);
+////    if (c) return c;
+////    else return -1;
+//
+//	return getc(fp_touch);
+//}
+
+int setnonblock(int sock);
+
+int setnonblock(int sock) {
+   int flags;
+   flags = fcntl(sock, F_GETFL, 0);
+   if (-1 == flags)
+      return -1;
+   return fcntl(sock, F_SETFL, flags | O_NONBLOCK);
+}
+
+int getResponse( void )
+{
+	int sel_ret_val;
+	int s_set = fileno(fp_touch) + 1;
+	ssize_t n_read;
+
+	int ch = 0;
+
+	fd_set keyboard;
+	struct timeval timeout;
+
+
+	timeout.tv_sec = 1;
+	timeout.tv_usec = 0;
+
+	FD_ZERO( &keyboard );
+	FD_SET( fileno(fp_touch), &keyboard );
+
+	if( FD_ISSET(fileno(fp_touch), &keyboard) ) {
+		n_read = read( fileno(fp_touch), &ch, 1 );
+		//if( n_read < 0 ) printf( "read()\n" );
+	}
+
+	return ch;
 }
 
 /*
@@ -86,22 +145,26 @@ char TouchLookup(Point p){
 *****************************************************************************/ 
 char getTouchChar(void) {
     Point p;
-
+    setnonblock(fileno(fp_touch));
 	printf("Successfully loaded touch screen, waiting for touch...\n");
-
-	int s = getResponse();
-	//printf("here\n");
-	if ((s & 0x80) == 0x80) {
-		if ((s & 0x81) == 0x81) {
-			GetPress();
-			ts_status = 0;
-		}
-		else if ((s & 0x81) == 0x80 && ts_status == 0) {
-			p = GetRelease();
-			ts_status = 1;
+	while(1) {
+		int s = getResponse();
+		//printf("here\n");
+		if ((s & 0x80) == 0x80) {
+			if ((s & 0x81) == 0x81) {
+				GetPress();
+				ts_status = 0;
+			}
+			else if ((s & 0x81) == 0x80 && ts_status == 0) {
+				p = GetRelease();
+				ts_status = 1;
+				break;
+			} else {
+				GetPress();
+				ts_status = 0;
+			}
 		} else {
-			GetPress();
-			ts_status = 0;
+			break;
 		}
 	}
 

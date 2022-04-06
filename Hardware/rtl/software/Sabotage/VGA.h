@@ -36,7 +36,7 @@ void print_numpad_array(void);
 
 int VGA_driver(void);
 int coldStart(void);
-void close(void);
+void close_driver(void);
 
 void input_handler(char input);
 void add_digit(char digit);

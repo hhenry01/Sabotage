@@ -40,12 +40,12 @@ int VGA_driver(void) {
   }
 
   input = getTouchChar();
-  input_handler(input);
+  if (input != 'n') input_handler(input);
 
   return 0;
 }
 
-void close(void) {
+void close_driver(void) {
   // Close File descriptors
 	fclose(fp_touch);
 }
@@ -135,16 +135,17 @@ void draw_numpad_box(int col, int row, int text_col, int text_row, char *str) {
 
 void input_handler(char input) {
 
-	printf("Input: %c \r\n", input);
+  printf("Input: %c \r\n", input);
 
   switch(input) {
   case 'e':
-    //-- Only when reached the end of the string
-    if (id_pos == ID_SIZE) {
-      user_id[id_pos] = '\0';
-      memcpy(user_id_global, user_id, ID_SIZE); 	// Take local file variable into global to send to wifi
-      clear_user_id();
-    }
+	if (strcmp(user_id, "0000") != 0) {
+	    //-- Only when reached the end of the string
+	      user_id[ID_SIZE] = '\0';
+	      memcpy(user_id_global, user_id, ID_SIZE); 	// Take local file variable into global to send to wifi
+	      clear_user_id();
+
+	}
     break;
   case 'c':
     clear_user_id();
@@ -174,8 +175,7 @@ void clear_user_id(void) {
 
   //-- clears the entire string
   while (id_pos > 0) {
-    user_id[id_pos] = '0';
-    id_pos--;
+    user_id[--id_pos] = '0';
   }
 
   draw_user_ID();
