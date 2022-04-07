@@ -57,6 +57,7 @@ int main(void)
 			}
 			doGPS = 0;
 		}
+		usleep(25000);
 
 	}
 

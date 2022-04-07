@@ -4,7 +4,7 @@
  * Machine generated for CPU 'Nios2' in SOPC Builder design 'Computer_System'
  * SOPC Builder design path: ../../Computer_System.sopcinfo
  *
- * Generated: Tue Mar 22 23:21:24 PDT 2022
+ * Generated: Wed Apr 06 16:20:12 PDT 2022
  */
 
 /*
@@ -542,7 +542,7 @@
 #define SYSID_IRQ_INTERRUPT_CONTROLLER_ID -1
 #define SYSID_NAME "/dev/SysID"
 #define SYSID_SPAN 8
-#define SYSID_TIMESTAMP 1648015446
+#define SYSID_TIMESTAMP 1649268871
 #define SYSID_TYPE "altera_avalon_sysid_qsys"
 
 
@@ -607,6 +607,31 @@
 #define TOUCH_DATA_TRANSMIT_RESET_VALUE 0
 #define TOUCH_DATA_TRANSMIT_SPAN 16
 #define TOUCH_DATA_TRANSMIT_TYPE "altera_avalon_pio"
+
+
+/*
+ * Touch_UART configuration
+ *
+ */
+
+#define ALT_MODULE_CLASS_Touch_UART altera_avalon_uart
+#define TOUCH_UART_BASE 0xff203100
+#define TOUCH_UART_BAUD 9600
+#define TOUCH_UART_DATA_BITS 8
+#define TOUCH_UART_FIXED_BAUD 1
+#define TOUCH_UART_FREQ 100000000
+#define TOUCH_UART_IRQ 6
+#define TOUCH_UART_IRQ_INTERRUPT_CONTROLLER_ID 0
+#define TOUCH_UART_NAME "/dev/Touch_UART"
+#define TOUCH_UART_PARITY 'N'
+#define TOUCH_UART_SIM_CHAR_STREAM ""
+#define TOUCH_UART_SIM_TRUE_BAUD 0
+#define TOUCH_UART_SPAN 32
+#define TOUCH_UART_STOP_BITS 1
+#define TOUCH_UART_SYNC_REG_DEPTH 2
+#define TOUCH_UART_TYPE "altera_avalon_uart"
+#define TOUCH_UART_USE_CTS_RTS 0
+#define TOUCH_UART_USE_EOP_REGISTER 0
 
 
 /*

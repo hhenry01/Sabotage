@@ -41,7 +41,7 @@ def main():
 
     lat, lon = args.coord
     sessionsCluster.update_one({
-        "Session": args.id
+        "SessionID": args.id
     }, {"$set": {
         "Coord": [lat, lon],
         "Metrics": {

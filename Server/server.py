@@ -43,10 +43,11 @@ def getNearby(playerLoc):
                  playerLoc[0], playerLoc[1]) < COUNTS_AS_CLOSE,
         locations
     )
-    return [{"SessionID": loc["SessionID"],
-             "Coord": loc["Coord"],
-             "Metrics": loc["Metrics"]}
-            for loc in closeLocs]
+    nearby = [{"SessionID": loc["SessionID"],
+               "Coord": loc["Coord"],
+               "Metrics": loc["Metrics"]}
+              for loc in closeLocs]
+    return nearby
 
 
 # Generate a unique user ID
@@ -124,6 +125,7 @@ class HTTPRequestHandler(BaseHTTPRequestHandler):
         session = sessionsCluster.find_one({"SessionID": sessionID})
         # Session IDs should only be added to the database manually
         if session is None:
+            print("Session not found")
             self.send_response(400)
             self.end_headers()
             self.wfile.write("Error finding session".encode())

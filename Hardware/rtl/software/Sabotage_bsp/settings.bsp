@@ -2,8 +2,8 @@
 <sch:Settings xmlns:sch="http://www.altera.com/embeddedsw/bsp/schema">
         <BspType>hal</BspType>
         <BspVersion>default</BspVersion>
-        <BspGeneratedTimeStamp>22-Mar-2022 11:21:23 PM</BspGeneratedTimeStamp>
-        <BspGeneratedUnixTimeStamp>1648016483947</BspGeneratedUnixTimeStamp>
+        <BspGeneratedTimeStamp>6-Apr-2022 4:20:10 PM</BspGeneratedTimeStamp>
+        <BspGeneratedUnixTimeStamp>1649287210852</BspGeneratedUnixTimeStamp>
         <BspGeneratedLocation>C:\Users\henry\Documents\Schoolwork\CPEN_391\Sabotage\Hardware\rtl\software\Sabotage_bsp</BspGeneratedLocation>
         <BspSettingsFile>settings.bsp</BspSettingsFile>
         <SopcDesignFile>..\..\Computer_System.sopcinfo</SopcDesignFile>
@@ -1059,6 +1059,12 @@
                 <addressRange>0xFF2030E0 - 0xFF2030EF</addressRange>
                 <addressSpan>16</addressSpan>
                 <attributes/>
+        </MemoryMap>
+        <MemoryMap>
+                <slaveDescriptor>Touch_UART</slaveDescriptor>
+                <addressRange>0xFF203100 - 0xFF20311F</addressRange>
+                <addressSpan>32</addressSpan>
+                <attributes>printable</attributes>
         </MemoryMap>
         <LinkerSection>
                 <sectionName>.text</sectionName>

@@ -7,7 +7,7 @@ const char* ssid     = "This ain't a hotspot";
 const char* password = "henry123";
 
 // Temporary host for development purposes.
-const String remoteServer = "http://1ed6-66-115-146-77.ngrok.io";
+const String remoteServer = "http://21ff-128-189-89-193.ngrok.io";
 const String route = "/de1";
 const String host = remoteServer + route;
 //const String host = remoteServer;
