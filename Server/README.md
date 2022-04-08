@@ -1,5 +1,12 @@
 # Server
-Handles HTTP requests from the De1-SoC and the mobile app. See [`Testing/Server/`](../Testing/Server/) for how to test.
+Handles HTTP requests from the De1-SoC and the mobile app. Database functionality fulfilled by MongoDB via the `PyMongo`
+API.
+
+To run, enter `python3 server.py -i <ip address> -p <port number>`. For example:
+`python3 server.py -i localhost -p 8000`. If you do not specify the `-i` argument, it defaults to localhost.
+
+See [`Testing/Server/`](../Testing/Server/) for how to test.
+
 # HTTP Request Format
 The messages contained in the HTTP requests are formatted in JSON strings.
 ## De1-SoC POST
