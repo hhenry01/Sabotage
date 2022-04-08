@@ -62,9 +62,6 @@ public class user_login extends AppCompatActivity {
             if(userID.getText().toString().equals("0")) { //If text is 0, get a new userID.
                 List<String> current_location = new ArrayList<>();
 
-                //Difficult to find current location first then get, so rn it's just a substitute
-                //current_location.add(Double.toString(latLng.latitude));
-                //current_location.add(Double.toString(latLng.longitude));
 
                 current_location.add("49.271723479330106");
                 current_location.add("-123.2518942169877");
@@ -86,6 +83,7 @@ public class user_login extends AppCompatActivity {
                         TextView invalid = findViewById(R.id.invalid);
                         invalid.setText("New User: " + UserID);
                         Post_Request post = new Post_Request(UserID);//, "0", "0");
+                        //Then post that UserID that we've just now received and go to Maps Page
                         Call<Void> called = jsonPlaceHolderApi.POST_REQUEST_CALL(post);
                         called.enqueue(new Callback<Void>() {
                             @Override
@@ -117,6 +115,7 @@ public class user_login extends AppCompatActivity {
                     }
                 });
             } else {
+                //Post the userID inputted and check if it is in the database, if not we'll get an error code
                 UserID = userID.getText().toString();
                 Post_Request post = new Post_Request(UserID);//, "0", "0");
                 Call<Void> call = jsonPlaceHolderApi.POST_REQUEST_CALL(post);
@@ -146,10 +145,11 @@ public class user_login extends AppCompatActivity {
 
         } else {
             TextView invalid = findViewById(R.id.invalid);
-            invalid.setText("Invalid UserID");
+            invalid.setText("Invalid UserID"); //Display error message for invalid ID
         }
     }
 
+    //Check if string is only numbers
     public static boolean isNumeric(String str) {
         try {
             Double.parseDouble(str);

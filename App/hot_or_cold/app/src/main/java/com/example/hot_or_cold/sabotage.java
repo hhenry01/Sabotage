@@ -60,6 +60,7 @@ public class sabotage extends AppCompatActivity {
 
         Intent intent = getIntent();
 
+        //Update text and internal fields
         sabotage_button = findViewById(R.id.Sabotage_button);
         circle_center = new LatLng(intent.getDoubleExtra("Latitude", -1)
                 ,intent.getDoubleExtra("Longitude", -1));
@@ -133,6 +134,7 @@ public class sabotage extends AppCompatActivity {
                                 return;
                             }
 
+                            //update player count as well as sabotage token count and display
                             Get_Sabotage posts = response.body();
                             players_in_lobby = posts.getNumPlayers();
                             Players_in_lobby = Integer.toString(players_in_lobby);
@@ -229,6 +231,12 @@ public class sabotage extends AppCompatActivity {
         startActivity(intent);
     }
 
+    /**
+     * Used when swap sabotage is pressed. Checks if there are enough players in the lobby and the user has enough tokens
+     * and the session isn't currently being sabotaged, and sends a post with the sabotage ID 1 that will be read
+     * in the hot or cold class.
+     * @param view necessary for button press
+     */
     public void swap_sabotage(View view) {
         List<String> current_location = new ArrayList<>();
 
@@ -303,6 +311,12 @@ public class sabotage extends AppCompatActivity {
         }, 3 * 1000);
     }
 
+    /**
+     * Used when cooldown sabotage is pressed. Checks if there are enough players in the lobby and the user has enough tokens
+     * and the session isn't currently being sabotaged, and sends a post with the sabotage ID 2 that will be read
+     * in the hot or cold class.
+     * @param view necessary for button press
+     */
     public void cooldown_sabotage(View view) {
         List<String> current_location = new ArrayList<>();
 
@@ -377,6 +391,12 @@ public class sabotage extends AppCompatActivity {
         }, 3 * 1000);
     }
 
+    /**
+     * Used when random sabotage is pressed. Checks if there are enough players in the lobby and the user has enough tokens
+     * and the session isn't currently being sabotaged, and sends a post with the sabotage ID 3 that will be read
+     * in the hot or cold class.
+     * @param view necessary for button press
+     */
     public void random_sabotage(View view) {
         List<String> current_location = new ArrayList<>();
 

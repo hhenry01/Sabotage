@@ -3,7 +3,7 @@ package com.example.hot_or_cold;
 public class constants {
 
     //The current URL used for posting and getting
-    public static final String URL = "https://21ff-128-189-89-193.ngrok.io/";
+    public static final String URL = "https://46b7-128-189-93-114.ngrok.io/";
 
     //URL for emulator posts and get
     public static final String EMULATOR_URL = "http://10.0.2.2:8000/";

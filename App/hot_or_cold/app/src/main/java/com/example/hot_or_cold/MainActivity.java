@@ -48,6 +48,13 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Checks if permissions are given, if not asks for permissions, and go to next page only
+     * if GPS fine location (necessary for location tracking) permission and Wifi State
+     * (necessary for wifi RSSI) permissions are given. Permissions may not be required
+     * depending on API level of Android User
+     * @param intent necessary to pass onto the logins screen.
+     */
     private void getPermissions(Intent intent) {
 
         if (ContextCompat.checkSelfPermission(MainActivity.this,
@@ -146,7 +153,7 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(MainActivity.this, user_login.class);
         getPermissions(intent);
     }
-/*
+/* //Admin server testing page, commented out in user build.
     public void test_server(View view) {
         Intent intent = new Intent(MainActivity.this, test_server.class);
         getPermissions(intent);

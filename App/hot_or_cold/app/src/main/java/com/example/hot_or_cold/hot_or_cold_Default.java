@@ -354,23 +354,29 @@ public class hot_or_cold_Default extends AppCompatActivity {
         boolean update_location = true;
         //If you are within SMALL_RADIUS, you will use the wifi rssi to measure closeness instead of GPS now
         //if wifi of the DE1 could not be found we'll just display a darker red button and let them know they're within the SMALL_RADIUS
-        if(curr_dist[0] <= SMALL_RADIUS) {
-            int wifi_strength = wifi_strength_test();
-            if(wifi_strength == 0) {
-                main_button.setBackgroundDrawable(very_close_button);
-                vibration_time = 1000;
-                very_close_text.setText("You are within " + SMALL_RADIUS + "m" );
-            } else if((wifi_strength < 0) ^ reverse_or_not) {
+        int wifi_strength = wifi_strength_test();
+        if(wifi_strength != 0) {
+            if((wifi_strength < 0) ^ reverse_or_not) {
+                if(reverse_or_not) {
+                    wifi_strength = wifi_strength * (-1);
+                }
                 main_button.setBackgroundDrawable(red_button);
                 vibration_time = 1000;
-                very_close_text.setText("Wifi level: " + (wifi_strength + 100));
+                very_close_text.setText("Wifi level: " + wifi_strength);
             } else {
+                if(reverse_or_not) {
+                    wifi_strength = wifi_strength * (-1);
+                }
                 main_button.setBackgroundDrawable(blue_button);
                 vibration_time = 500;
-                very_close_text.setText("Wifi level: " + (wifi_strength * (-1) + 100));
+                very_close_text.setText("Wifi level: " + wifi_strength * (-1));
             }
             //If we aren't within SMALL_RADIUS we'll just check if our previous location is closer or further than our current
-        } else if(Math.abs(prev_dist[0] - curr_dist[0]) <= 5) {
+        } else if(curr_dist[0] <= SMALL_RADIUS) {
+            main_button.setBackgroundDrawable(very_close_button);
+            vibration_time = 1000;
+            very_close_text.setText("You are within " + SMALL_RADIUS + "m");
+        } else if(Math.abs(prev_dist[0] - curr_dist[0]) <= 1) {
             main_button.setBackgroundDrawable(yellow_button);
             vibration_time = 500;
             very_close_text.setText("Move at least 10m before pressing the button");

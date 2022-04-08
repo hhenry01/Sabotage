@@ -138,10 +138,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         List<String> current_location = new ArrayList<>();
 
-        //Difficult to find current location first then get, so rn it's just a substitute
-        //current_location.add(Double.toString(latLng.latitude));
-        //current_location.add(Double.toString(latLng.longitude));
-
         current_location.add("49.271723479330106");
         current_location.add("-123.2518942169877");
 
@@ -179,7 +175,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                                 .clickable(true)
                         );
 
-                        /*
+                        /* //Admin feature that displays the radius where WiFi RSSI will be used instead of GPS
                         mMap.addCircle(new CircleOptions()
                                 .center(locs_coords)
                                 .radius(SMALL_RADIUS)
@@ -197,7 +193,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         mMap.addMarker(new MarkerOptions().position(random_coord).title(
                                 locs.getSessionID() + ": " + locs.getMetrics().getPlayerCount() )).showInfoWindow();
 
-                        /*
+                        /* //Admin feature that displays the actual location of the DE1 without randomness
                         mMap.addMarker(new MarkerOptions().position(locs_coords).title(
                                 "Center")).showInfoWindow();
                         */
