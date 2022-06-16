@@ -1,5 +1,5 @@
 # Sabotage
-This repository for our game called **Sabotage**. The game is an Android app that uses GPS to direct you to a game
+This repository is for our game called **Sabotage**. The game is an Android app that uses GPS to direct you to a game
 session with a hidden De1-SoC board. This GPS location is "general" and imprecise. Once you're in the general vicinity,
 you’ll play "hot or cold" to pinpoint the precise location of the De1 using proximity detection implented with WiFi RSSI.
 You’d play hot or cold by clicking the button on the app to ping “hot or cold”. In this “hot or cold” stage, other
@@ -9,8 +9,9 @@ will be added to the leaderboard. Your score will be based on how long it took a
 
 ![](images/system.png)
 
-## Video Demo
-*Coming soon*
+## Reports
+Under [Reference Documents/Reports](Reference%20Documents/Reports), are the reports the team made describing our
+individual contributions to, and the implementation details of, this project.
 
 ## Structure
 ![](images/network.png)
